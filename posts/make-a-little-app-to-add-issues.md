@@ -7,4 +7,6 @@ summary: Make a little app to add issues to daverhoden.com. Could even be a
 tags:
   - post
 ---
+![better interface for eleventy](/static/img/better-eleventy-interface-aug-22-2022.jpg)
+
 Make a little app to add issues to daverhoden.com. Could even be a Chrome extension. Something better than Netlify CMS.
