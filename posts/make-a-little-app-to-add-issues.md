@@ -7,4 +7,4 @@ summary: Make a little app to add issues to daverhoden.com. Could even be a
 tags:
   - post
 ---
-Make a little app to add issues to daverhoden.com. Could even be a Chrome extension.
+Make a little app to add issues to daverhoden.com. Could even be a Chrome extension. Something better than Netlify CMS.
