@@ -2,7 +2,7 @@
 title: Fix Formspree form on Agencies Online home page
 date: 2022-08-23T15:50:46.585Z
 author: Agencies Online
-summary: urgent
+summary: Does Val already have a Formspree account?
 tags:
   - Agencies Online
 ---
