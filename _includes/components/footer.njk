@@ -5,7 +5,7 @@ document.querySelectorAll("nav button").forEach((btn, index) => {
   btn.addEventListener("click", () => {
     console.log(document.querySelector("article.class" + (index + 1)));
     gsap.to(window, {duration: 1, scrollTo:"article.class" + (index + 1)});
-
+    index++;
     console.log(index);
   });
 });
