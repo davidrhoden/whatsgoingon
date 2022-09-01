@@ -1,6 +1,6 @@
 <section>
 	{% for post in postslist | reverse %}
-		<article class{{ loop.index }}>
+		<article class="class{{ loop.index }}">
 			<h3>
 				<a href="{{ post.url | url }}">
 					{% if post.data.title %}
