@@ -1,5 +1,10 @@
 <footer>
-  <small>
-    This project is maintained by <a href="https:/davidrhoden.com">David Rhoden</a>.
-  </small>
 </footer>
+<script>
+document.querySelectorAll("nav button").forEach((btn, index) => {
+  btn.addEventListener("click", () => {
+    gsap.to(window, {duration: 1, scrollTo:"article class" + (index + 1)});
+    console.log(console.log(sections[index]));
+  });
+});
+</script>
