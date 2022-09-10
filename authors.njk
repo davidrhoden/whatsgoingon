@@ -14,7 +14,7 @@ permalink: "authors/index.html"
   {% for author in pagination.items %}
     <article class="class{{ loop.index }} {{ author | slug }}">
       <h3>
-        <a href="/authors/{{ author | slug }}">{{ author | safe }}</a>
+        <a href="/authors/{{ author | slug }}">{{ author | safe }} {{ collections[author].length }}</a>
       </h3>
     </article>
   {% endfor %}
@@ -22,3 +22,4 @@ permalink: "authors/index.html"
     <a href="{{ '/blog/' | url }}">← Blog index</a>
   </nav>
 </section>
+

@@ -60,6 +60,7 @@ img {
 main {
 	display: grid;
   place-items: center;
+  margin-top: 60px;
 	padding-bottom: 2em;
 }
 
