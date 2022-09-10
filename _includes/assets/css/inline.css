@@ -22,7 +22,6 @@ body {
 	background-color: var(--background);
 }
 
-/* -----  BEGIN MY CHANGES August 22, 2022 ----- */
 h3 {
 	font-size: 4em;
 }
@@ -32,14 +31,15 @@ article {
 }
 
 header {
-	background: lightblue;
 	position: fixed;
 	top: 0;
+	width: 100vw;
 	z-index: 2;
 }
 
+section {
 
-/* -----  END MY CHANGES ----- */
+}
 
 p,
 pre,
@@ -61,19 +61,10 @@ img {
 	height: auto;
 }
 
-header,
-main,
-footer {
-	padding: 1em;
-}
-
 main {
+	display: grid;
+  place-items: center;
 	padding-bottom: 2em;
-}
-
-main :first-child,
-main > article :first-child {
-	margin-top: 0;
 }
 
 pre {
@@ -131,11 +122,13 @@ header nav li a[data-current="current item"] {
 }
 
 /* Posts List */
+.centerer {
+	width:  90%;
+}
+
 article {
-	margin-bottom: 1em;
-	padding-bottom: 1em;
-	border-bottom: 1px solid #eee;
-	border-bottom: 1px solid var(--secondary);
+	display: grid;
+	place-items: center;
 }
 
 main > section > article > * {
@@ -189,7 +182,7 @@ button {
   padding: 1em;
   margin-bottom: 1em;
 	font-size: 1rem;
-	font-family: "Avenir", "Avenir Next", sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 input,
@@ -203,6 +196,19 @@ button {
 	color: var(--secondary);
 	cursor: pointer;
 }
+
+.david-rhoden {
+	background: orange;
+}
+
+.agencies-online {
+	background: hotpink;
+}
+
+.hhk {
+	background: yellowgreen;
+}
+
 
 @media screen and (min-width:768px) {
 	:root {
