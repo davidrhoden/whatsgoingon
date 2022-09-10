@@ -10,9 +10,9 @@ permalink: "authors/index.html"
 
 <h1>{{ title }}</h1>
 
-<section>
+<section class="authors">
   {% for author in pagination.items %}
-    <article>
+    <article class="class{{ loop.index }} {{ author | slug }}">
       <h3>
         <a href="/authors/{{ author | slug }}">{{ author | safe }}</a>
       </h3>

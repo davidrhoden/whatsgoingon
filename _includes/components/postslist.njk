@@ -1,6 +1,15 @@
 <section>
 	{% for post in postslist | reverse %}
-		<article class="class{{ loop.index }} {{ post.data.author | slug }}">
+
+		<article class="class{{ loop.index }} {{ post.data.author | slug }}
+		{% if post.data.tags %}
+				{% for tag in post.data.tags %}
+	  			{%- if tag == "completed" -%}
+	  				{% set completedClass %}{{ tag }}{% endset %}
+	  			{{ completedClass }}
+	  			{%- endif -%}
+				{% endfor %}
+		{% endif %}">
 			<div class="centerer">
 				<h3>
 					<a href="{{ post.url | url }}">
