@@ -7,6 +7,7 @@ hours: 0
 tags:
   - meta
   - completed
+  - daverhoden site
 ---
 
 It's for applying styles. It could be more than one class.

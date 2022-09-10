@@ -5,5 +5,6 @@ author: HHK
 summary: Add new fields to HHK
 tags:
   - post
+  - HHK
 ---
 This is way overdue.
