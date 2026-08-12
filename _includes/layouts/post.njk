@@ -5,7 +5,7 @@ section: post
 <section class="{{ author | slug }} full-width">
   <article>
     <div class="centerer">
-      <h3>{{ title }}</h3>
+      {% if title %}<h3>{{ title }}</h3>{% endif %}
       <p>
         <small>
           <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
