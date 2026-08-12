@@ -79,8 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
     timer = setInterval(next, INTERVAL);
   }
 
-  var btn = document.querySelector('header button');
-  if (btn) btn.addEventListener('click', next);
+  var btnNext = document.getElementById('btn-next');
+  var btnPrev = document.getElementById('btn-prev');
+  if (btnNext) btnNext.addEventListener('click', next);
+  if (btnPrev) btnPrev.addEventListener('click', prev);
 
   document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
