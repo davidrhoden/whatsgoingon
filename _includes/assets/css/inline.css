@@ -31,10 +31,51 @@ header {
 	top: 0;
 	width: 100vw;
 	z-index: 2;
+	background: rgba(0,0,0,0.55);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 }
 
-section {
+header nav {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	padding: 0.5em 1em;
+}
 
+header nav button {
+	width: auto;
+	padding: 0.4em 1.2em;
+	margin: 0;
+	font-size: 1rem;
+	font-family: Helvetica, Arial, sans-serif;
+	background: var(--secondary);
+	color: white;
+	border: none;
+	border-radius: 0.25em;
+	cursor: pointer;
+}
+
+header nav button:hover {
+	opacity: 0.85;
+}
+
+#slide-counter {
+	color: rgba(255,255,255,0.8);
+	font-size: 0.85rem;
+	font-variant-numeric: tabular-nums;
+}
+
+#slide-progress {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: var(--secondary);
+	transform-origin: left center;
+	transform: scaleX(0);
+	z-index: 10;
 }
 
 p,

@@ -20,6 +20,9 @@
 						{% endif %}
 					</a>
 				</h3>
+				{% if post.data.image %}
+					<img src="{{ post.data.image }}" alt="{{ post.data.title }}">
+				{% endif %}
 				{% if post.data.summary %}
 					<p>
 						{{ post.data.summary }}
