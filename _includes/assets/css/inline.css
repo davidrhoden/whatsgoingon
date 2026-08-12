@@ -66,6 +66,53 @@ header nav button:hover {
 	font-variant-numeric: tabular-nums;
 }
 
+#admin-panel {
+	position: fixed;
+	left: -152px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	align-items: center;
+	z-index: 6;
+	transition: left 0.25s ease;
+}
+
+#admin-panel:hover {
+	left: 0;
+}
+
+#admin-panel-tab {
+	background: rgba(0,0,0,0.7);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	padding: 0.6em 0.5em;
+	border-radius: 0 0.4em 0.4em 0;
+	font-size: 1.1rem;
+	cursor: pointer;
+	color: white;
+	line-height: 1;
+}
+
+#admin-panel-content {
+	background: rgba(0,0,0,0.7);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	padding: 0.75em 1em;
+	order: -1;
+	width: 152px;
+}
+
+#admin-edit-link {
+	color: white;
+	text-decoration: none;
+	font-size: 0.85rem;
+	white-space: nowrap;
+}
+
+#admin-edit-link:hover {
+	text-decoration: underline;
+}
+
 #slide-progress {
 	position: fixed;
 	bottom: 0;
