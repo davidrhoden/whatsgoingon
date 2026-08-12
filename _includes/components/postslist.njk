@@ -1,7 +1,7 @@
 <section>
 	{% for post in postslist | reverse %}
 
-		<article class="class{{ loop.index }} {{ post.data.author | slug }}
+		<article data-slug="{{ post.fileSlug }}" class="class{{ loop.index }} {{ post.data.author | slug }}
 		{% if post.data.tags %}
 				{% for tag in post.data.tags %}
 	  			{%- if tag == "completed" -%}

@@ -16,17 +16,19 @@ document.addEventListener('DOMContentLoaded', function() {
   if (articles.length < 2) return;
 
   var currentIndex = 0;
-  var INTERVAL = 15000;
+  var INTERVAL = 10000;
   var timer;
   var progressBar = document.getElementById('slide-progress');
   var progressTween;
   var counter = document.getElementById('slide-counter');
+  var editLink = document.getElementById('admin-edit-link');
 
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         currentIndex = articles.indexOf(entry.target);
         updateCounter();
+        updateEditLink();
       }
     });
   }, { threshold: 0.6 });
@@ -38,6 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function updateEditLink() {
+    if (editLink) {
+      var slug = articles[currentIndex].dataset.slug;
+      editLink.href = slug
+        ? '/admin/#/collections/blog/entries/' + slug
+        : '/admin/';
+    }
+  }
+
   function goTo(index) {
     currentIndex = ((index % articles.length) + articles.length) % articles.length;
     gsap.to(window, {
@@ -46,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ease: 'power2.inOut'
     });
     updateCounter();
+    updateEditLink();
     resetTimer();
   }
 
@@ -82,5 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   updateCounter();
+  updateEditLink();
   resetTimer();
 });
