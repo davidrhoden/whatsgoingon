@@ -37,6 +37,16 @@ module.exports = function(eleventyConfig) {
     }, {});
   });
 
+  // Slug filter - strips apostrophes/smart quotes before slugifying
+  eleventyConfig.addFilter("slug", function(str) {
+    if (!str) return "";
+    return str
+      .replace(/['''\u2018\u2019`]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  });
+
   // Date formatting (human readable)
   eleventyConfig.addFilter("readableDate", dateObj => {
     return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy");
