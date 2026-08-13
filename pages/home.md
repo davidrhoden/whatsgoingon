@@ -1,6 +1,6 @@
 ---
 layout: layouts/home.njk
-title: Home
+title: Dave Rhoden's Task Tracker
 date: 2022-08-22T00:00:00.000Z
 permalink: /
 eleventyNavigation:
