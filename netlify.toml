@@ -2,6 +2,15 @@
   publish = "_site"
   command = "eleventy"
 
+[[edge_functions]]
+  path = "/*"
+  function = "auth"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # REDIRECT and HEADERS examples
 
 # Redirect rule example
