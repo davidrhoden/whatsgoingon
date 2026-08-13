@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollToPlugin);
 
-  var articles = Array.from(document.querySelectorAll('main article'));
-  if (articles.length < 2) return;
+  var allArticles = Array.from(document.querySelectorAll('main article'));
+  if (!allArticles.length) return;
 
   var currentIndex = 0;
   var INTERVAL = 10000;
@@ -22,38 +22,64 @@ document.addEventListener('DOMContentLoaded', function() {
   var progressTween;
   var counter = document.getElementById('slide-counter');
   var editLink = document.getElementById('admin-edit-link');
+  var activeArticles = [];
+
+  function getMarked() {
+    try { return JSON.parse(localStorage.getItem('wgo-marked') || '{}'); }
+    catch(e) { return {}; }
+  }
+
+  function saveMark(slug, status) {
+    var marked = getMarked();
+    marked[slug] = status;
+    localStorage.setItem('wgo-marked', JSON.stringify(marked));
+  }
+
+  function refreshActive() {
+    var marked = getMarked();
+    allArticles.forEach(function(a) {
+      a.style.display = marked[a.dataset.slug] ? 'none' : '';
+    });
+    activeArticles = allArticles.filter(function(a) { return !marked[a.dataset.slug]; });
+  }
+
+  refreshActive();
 
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        currentIndex = articles.indexOf(entry.target);
-        updateCounter();
-        updateEditLink();
+        var idx = activeArticles.indexOf(entry.target);
+        if (idx !== -1) {
+          currentIndex = idx;
+          updateCounter();
+          updateEditLink();
+        }
       }
     });
   }, { threshold: 0.6 });
-  articles.forEach(function(a) { observer.observe(a); });
+  allArticles.forEach(function(a) { observer.observe(a); });
 
   function updateCounter() {
     if (counter) {
-      counter.textContent = (currentIndex + 1) + ' / ' + articles.length;
+      counter.textContent = activeArticles.length
+        ? (currentIndex + 1) + ' / ' + activeArticles.length
+        : '–';
     }
   }
 
   function updateEditLink() {
-    if (editLink) {
-      var slug = articles[currentIndex].dataset.slug;
-      editLink.href = slug
-        ? '/admin/#/collections/blog/entries/' + slug
-        : '/admin/';
+    if (editLink && activeArticles[currentIndex]) {
+      var slug = activeArticles[currentIndex].dataset.slug;
+      editLink.href = slug ? '/admin/#/collections/blog/entries/' + slug : '/admin/';
     }
   }
 
   function goTo(index) {
-    currentIndex = ((index % articles.length) + articles.length) % articles.length;
+    if (!activeArticles.length) return;
+    currentIndex = ((index % activeArticles.length) + activeArticles.length) % activeArticles.length;
     gsap.to(window, {
       duration: 0.8,
-      scrollTo: { y: articles[currentIndex], offsetY: 0 },
+      scrollTo: { y: activeArticles[currentIndex], offsetY: 0 },
       ease: 'power2.inOut'
     });
     updateCounter();
@@ -63,6 +89,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function next() { goTo(currentIndex + 1); }
   function prev() { goTo(currentIndex - 1); }
+
+  function markCurrent(status) {
+    if (!activeArticles.length) return;
+    var article = activeArticles[currentIndex];
+    var slug = article.dataset.slug;
+    if (!slug) return;
+    saveMark(slug, status);
+    refreshActive();
+    if (!activeArticles.length) {
+      clearInterval(timer);
+      if (progressTween) progressTween.kill();
+      updateCounter();
+      return;
+    }
+    currentIndex = Math.min(currentIndex, activeArticles.length - 1);
+    goTo(currentIndex);
+  }
 
   function resetTimer() {
     clearInterval(timer);
@@ -81,8 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var btnNext = document.getElementById('btn-next');
   var btnPrev = document.getElementById('btn-prev');
+  var btnDone = document.getElementById('btn-mark-done');
+  var btnWontDo = document.getElementById('btn-mark-wontdo');
   if (btnNext) btnNext.addEventListener('click', next);
   if (btnPrev) btnPrev.addEventListener('click', prev);
+  if (btnDone) btnDone.addEventListener('click', function() { markCurrent('done'); });
+  if (btnWontDo) btnWontDo.addEventListener('click', function() { markCurrent('wontdo'); });
 
   document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
