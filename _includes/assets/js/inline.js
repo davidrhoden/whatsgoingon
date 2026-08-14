@@ -131,6 +131,18 @@ document.addEventListener('DOMContentLoaded', function() {
   if (btnDone) btnDone.addEventListener('click', function() { markCurrent('done'); });
   if (btnWontDo) btnWontDo.addEventListener('click', function() { markCurrent('wontdo'); });
 
+  var adminPanel = document.getElementById('admin-panel');
+  if (adminPanel) {
+    adminPanel.addEventListener('mouseenter', function() {
+      clearInterval(timer);
+      if (progressTween) progressTween.kill();
+      if (progressBar) gsap.set(progressBar, { scaleX: 0 });
+    });
+    adminPanel.addEventListener('mouseleave', function() {
+      resetTimer();
+    });
+  }
+
   document.addEventListener('keydown', function(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
