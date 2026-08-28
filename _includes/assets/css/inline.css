@@ -60,6 +60,38 @@ header nav button:hover {
 	opacity: 0.85;
 }
 
+#btn-pause-play {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.5);
+	color: white;
+	width: auto;
+	padding: 0.3em 0.9em;
+	font-size: 0.85rem;
+	border-radius: 0.25em;
+	cursor: pointer;
+	margin: 0;
+}
+
+#btn-pause-play:hover {
+	background: rgba(255,255,255,0.15);
+	border-color: white;
+}
+
+#nav-done-link {
+	color: rgba(255,255,255,0.8);
+	font-size: 0.85rem;
+	text-decoration: none;
+	margin-left: auto;
+}
+
+#nav-done-link:hover {
+	color: white;
+	text-decoration: underline;
+}
+
 #slide-counter {
 	color: rgba(255,255,255,0.8);
 	font-size: 0.85rem;
