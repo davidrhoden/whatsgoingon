@@ -57,6 +57,25 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj).toFormat("yyyy-MM-dd");
   });
 
+  // Age of post in days
+  eleventyConfig.addFilter("daysOld", dateObj => {
+    return Math.floor(DateTime.now().diff(DateTime.fromJSDate(dateObj), "days").days);
+  });
+
+  // Age of post at time of completion (completedDate - date); falls back to current age
+  eleventyConfig.addFilter("ageAtCompletion", (dateObj, completedDate) => {
+    const start = DateTime.fromJSDate(dateObj);
+    let end;
+    if (completedDate instanceof Date) {
+      end = DateTime.fromJSDate(completedDate);
+    } else if (completedDate) {
+      end = DateTime.fromISO(completedDate);
+    } else {
+      end = DateTime.now();
+    }
+    return Math.floor(end.diff(start, "days").days);
+  });
+
   // Minify CSS
   eleventyConfig.addFilter("cssmin", function(code) {
     return new CleanCSS({}).minify(code).styles;
