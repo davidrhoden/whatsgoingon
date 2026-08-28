@@ -37,6 +37,28 @@ module.exports = function(eleventyConfig) {
     }, {});
   });
 
+  // Serialize posts collection to minimal JSON for client-side use
+  eleventyConfig.addFilter("postsToJson", posts => {
+    return JSON.stringify(posts.map(p => ({
+      slug: p.fileSlug,
+      title: p.data.title || p.fileSlug,
+      url: p.url,
+      date: p.date,
+      author: p.data.author || '',
+      tags: p.data.tags || [],
+      completedDate: p.data.completedDate || null,
+      inputPath: p.inputPath
+    })));
+  });
+
+  // Done tasks collection (tagged "completed" or "complete")
+  eleventyConfig.addCollection("done", collection => {
+    return collection.getFilteredByGlob("posts/*.md").filter(post => {
+      const tags = post.data.tags || [];
+      return tags.includes("completed") || tags.includes("complete");
+    });
+  });
+
   // Slug filter - strips apostrophes/smart quotes before slugifying
   eleventyConfig.addFilter("slug", function(str) {
     if (!str) return "";
