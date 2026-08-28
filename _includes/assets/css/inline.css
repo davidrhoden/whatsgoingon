@@ -435,6 +435,41 @@ button {
 	background: green;
 }
 
+/* Done list page */
+.done-list {
+	padding: 1em;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.done-item {
+	display: block;
+	height: auto;
+	width: auto;
+	border-bottom: 1px solid #ddd;
+	padding: 1em 0;
+}
+
+.done-item h3 {
+	font-size: 1.4em;
+	margin: 0 0 0.25em;
+}
+
+.done-meta {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 0.9em;
+	color: #555;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1.5em;
+}
+
+.done-meta li {
+	margin: 0;
+}
+
 @media screen and (min-width:768px) {
 	:root {
 		font-size: 1.1rem;
