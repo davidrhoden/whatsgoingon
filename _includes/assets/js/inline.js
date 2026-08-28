@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var currentIndex = 0;
   var INTERVAL = 10000;
   var timer;
+  var paused = false;
   var progressBar = document.getElementById('slide-progress');
   var progressTween;
   var counter = document.getElementById('slide-counter');
@@ -29,18 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
     catch(e) { return {}; }
   }
 
+  function getMarkStatus(entry) {
+    if (!entry) return null;
+    return typeof entry === 'object' ? entry.status : entry;
+  }
+
   function saveMark(slug, status) {
     var marked = getMarked();
-    marked[slug] = status;
+    marked[slug] = { status: status, markedAt: Date.now() };
     localStorage.setItem('wgo-marked', JSON.stringify(marked));
   }
 
   function refreshActive() {
     var marked = getMarked();
     allArticles.forEach(function(a) {
-      a.style.display = marked[a.dataset.slug] ? 'none' : '';
+      a.style.display = getMarkStatus(marked[a.dataset.slug]) ? 'none' : '';
     });
-    activeArticles = allArticles.filter(function(a) { return !marked[a.dataset.slug]; });
+    activeArticles = allArticles.filter(function(a) { return !getMarkStatus(marked[a.dataset.slug]); });
   }
 
   refreshActive();
@@ -84,6 +90,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     updateCounter();
     updateEditLink();
+    if (!paused) resetTimer();
+  }
+
+  function pause() {
+    paused = true;
+    clearInterval(timer);
+    if (progressTween) progressTween.kill();
+    if (progressBar) gsap.set(progressBar, { scaleX: 0 });
+    var btn = document.getElementById('btn-pause-play');
+    if (btn) btn.innerHTML = '&#9654;';
+  }
+
+  function play() {
+    paused = false;
+    var btn = document.getElementById('btn-pause-play');
+    if (btn) btn.innerHTML = '&#9646;&#9646;';
     resetTimer();
   }
 
@@ -95,6 +117,21 @@ document.addEventListener('DOMContentLoaded', function() {
     var article = activeArticles[currentIndex];
     var slug = article.dataset.slug;
     if (!slug) return;
+
+    // Persist to GitHub if marking done
+    if (status === 'done') {
+      var post = (window.WGO_POSTS || []).find(function(p) { return p.slug === slug; });
+      if (post && post.inputPath) {
+        fetch('/.netlify/functions/mark-done', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ inputPath: post.inputPath })
+        }).catch(function(err) {
+          console.warn('mark-done function error:', err);
+        });
+      }
+    }
+
     saveMark(slug, status);
     refreshActive();
     if (!activeArticles.length) {
@@ -124,10 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var btnNext = document.getElementById('btn-next');
   var btnPrev = document.getElementById('btn-prev');
+  var btnPausePlay = document.getElementById('btn-pause-play');
   var btnDone = document.getElementById('btn-mark-done');
   var btnWontDo = document.getElementById('btn-mark-wontdo');
   if (btnNext) btnNext.addEventListener('click', next);
   if (btnPrev) btnPrev.addEventListener('click', prev);
+  if (btnPausePlay) btnPausePlay.addEventListener('click', function() { paused ? play() : pause(); });
   if (btnDone) btnDone.addEventListener('click', function() { markCurrent('done'); });
   if (btnWontDo) btnWontDo.addEventListener('click', function() { markCurrent('wontdo'); });
 
@@ -139,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (progressBar) gsap.set(progressBar, { scaleX: 0 });
     });
     adminPanel.addEventListener('mouseleave', function() {
-      resetTimer();
+      if (!paused) resetTimer();
     });
   }
 
