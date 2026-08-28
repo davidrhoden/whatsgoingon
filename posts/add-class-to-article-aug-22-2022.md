@@ -4,6 +4,7 @@ date: 2022-08-22
 author: 'daverhoden site'
 summary: It's for applying styles.
 hours: 0
+completedDate: 2022-08-22
 tags:
   - meta
   - completed

@@ -4,6 +4,7 @@ date: 2022-08-23T17:16:20.893Z
 author: daverhoden site
 summary: Make a little app to add issues to daverhoden.com. Could even be a
   Chrome extension.
+completedDate: 2022-09-21
 tags:
   - post
   - complete
