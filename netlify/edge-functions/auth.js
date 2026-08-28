@@ -1,4 +1,10 @@
 export default async (request, context) => {
+  // Skip auth for internal Netlify function calls
+  const url = new URL(request.url);
+  if (url.pathname.startsWith('/.netlify/')) {
+    return context.next();
+  }
+
   const validUser = Netlify.env.get('AUTH_USER');
   const validPass = Netlify.env.get('AUTH_PASS');
 
