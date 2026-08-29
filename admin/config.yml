@@ -9,7 +9,7 @@ backend:
 # publish_mode: editorial_workflow
 
 # Uncomment below to enable a link to your published site in the header bar of Netlify CMS
-# site_url: https://eleventy-netlify-boilerplate.netlify.app/
+site_url: https://daverhoden.com
 
 media_folder: "static/img" # Media files will be stored in the repo under images/uploads
 
@@ -27,6 +27,7 @@ collections:
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
+      - { label: "Completed Date", name: "completedDate", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: false, hint: "Set this when the task is done." }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Our pages e.g. About
   - name: "pages"
