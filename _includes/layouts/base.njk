@@ -1,6 +1,7 @@
 <!doctype html>
 <html {% if section %} data-current="{{ section }}"{% endif %} lang="en">
 	{% include "components/head.njk" %}
+	<script>window.WGO_POSTS = {{ collections.post | postsToJson | safe }};</script>
 	<body>
 		<header>
 			{% include "components/nav.njk" %}
