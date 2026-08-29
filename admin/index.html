@@ -11,5 +11,49 @@
     <!-- Include Netlify Identity for authentication -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script type="module" src="/admin/preview-templates/index.js"></script>
+    <script>
+    (function() {
+      var knownPosts = [];
+
+      fetch('/post-slugs.json')
+        .then(function(r) { return r.json(); })
+        .then(function(posts) { knownPosts = posts; })
+        .catch(function() {});
+
+      function slugify(str) {
+        if (!str) return '';
+        return str.replace(/['''\u2018\u2019`]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      }
+
+      window.addEventListener('load', function() {
+        if (!window.CMS) return;
+
+        window.CMS.registerEventListener({
+          name: 'preSave',
+          handler: function(args) {
+            var entry = args.entry;
+            var title = entry.getIn(['data', 'title']);
+            if (!title) return entry;
+
+            var newTitleSlug = slugify(title);
+            var currentFileSlug = entry.get('slug'); // file slug of the entry being edited
+
+            var duplicate = knownPosts.find(function(p) {
+              return slugify(p.title) === newTitleSlug && p.slug !== currentFileSlug;
+            });
+
+            if (duplicate) {
+              throw new Error(
+                'A task with a very similar title already exists: "' + duplicate.title + '". ' +
+                'Duplicate titles cause URL conflicts — please use a different title.'
+              );
+            }
+
+            return entry;
+          }
+        });
+      });
+    })();
+    </script>
   </body>
 </html>

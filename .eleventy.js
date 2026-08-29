@@ -51,6 +51,31 @@ module.exports = function(eleventyConfig) {
     })));
   });
 
+  // Validate no duplicate post titles — same title = same URL = files overwrite each other
+  eleventyConfig.addCollection("_postValidation", collection => {
+    const posts = collection.getFilteredByGlob("posts/*.md");
+    const slugify = str => {
+      if (!str) return "";
+      return str.replace(/['''\u2018\u2019`]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    };
+    const seen = {};
+    const duplicates = [];
+    posts.forEach(post => {
+      const slug = slugify(post.data.title || "");
+      if (seen[slug]) {
+        duplicates.push(`  "${post.data.title}"\n    - ${seen[slug]}\n    - ${post.inputPath}`);
+      } else {
+        seen[slug] = post.inputPath;
+      }
+    });
+    if (duplicates.length > 0) {
+      throw new Error(
+        `\nDuplicate post titles detected — these would produce the same URL:\n${duplicates.join("\n")}\n`
+      );
+    }
+    return [];
+  });
+
   // Done tasks collection (tagged "completed" or "complete")
   eleventyConfig.addCollection("done", collection => {
     return collection.getFilteredByGlob("posts/*.md").filter(post => {
