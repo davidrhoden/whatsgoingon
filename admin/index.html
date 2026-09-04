@@ -25,28 +25,69 @@
         return str.replace(/['''\u2018\u2019`]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
       }
 
+      function Control(props) {
+        var done = props.value === 'done';
+        return React.createElement('button', {
+          type: 'button',
+          id: props.forID,
+          onClick: function() { props.onChange('done'); },
+          style: {
+            padding: '0.5em 1em',
+            background: done ? '#22c55e' : '#64748b',
+            color: 'white',
+            border: 'none',
+            borderRadius: '0.25em',
+            cursor: 'pointer'
+          }
+        }, done ? 'Will be marked done on save' : 'Mark as Done');
+      }
+
+      function Preview() {
+        return null;
+      }
+
       window.addEventListener('load', function() {
         if (!window.CMS) return;
+
+        window.CMS.registerWidget('doneButton', Control, Preview);
 
         window.CMS.registerEventListener({
           name: 'preSave',
           handler: function(args) {
             var entry = args.entry;
             var title = entry.getIn(['data', 'title']);
-            if (!title) return entry;
+            var collection = entry.get('collection');
 
-            var newTitleSlug = slugify(title);
-            var currentFileSlug = entry.get('slug'); // file slug of the entry being edited
+            // Duplicate title check (blog posts only)
+            if (title && collection === 'blog') {
+              var newTitleSlug = slugify(title);
+              var currentFileSlug = entry.get('slug');
 
-            var duplicate = knownPosts.find(function(p) {
-              return slugify(p.title) === newTitleSlug && p.slug !== currentFileSlug;
-            });
+              var duplicate = knownPosts.find(function(p) {
+                return slugify(p.title) === newTitleSlug && p.slug !== currentFileSlug;
+              });
 
-            if (duplicate) {
-              throw new Error(
-                'A task with a very similar title already exists: "' + duplicate.title + '". ' +
-                'Duplicate titles cause URL conflicts — please use a different title.'
-              );
+              if (duplicate) {
+                throw new Error(
+                  'A task with a very similar title already exists: "' + duplicate.title + '". ' +
+                  'Duplicate titles cause URL conflicts — please use a different title.'
+                );
+              }
+            }
+
+            // Done button action (blog posts only)
+            if (collection === 'blog' && entry.getIn(['data', 'markDone']) === 'done') {
+              var today = new Date().toISOString().split('T')[0];
+              var tags = entry.getIn(['data', 'tags']);
+
+              if (tags && tags.toJS) { tags = tags.toJS(); }
+              if (!Array.isArray(tags)) { tags = ['post']; }
+              if (tags.indexOf('completed') === -1) { tags.push('completed'); }
+
+              entry = entry
+                .setIn(['data', 'completedDate'], today)
+                .setIn(['data', 'tags'], tags)
+                .setIn(['data', 'markDone'], null);
             }
 
             return entry;
