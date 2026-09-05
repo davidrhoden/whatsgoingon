@@ -53,19 +53,29 @@
             }
 
             // Mark as Done action (blog posts only)
-            if (collection === 'blog' && entry.getIn(['data', 'markDone']) === true) {
-              var today = new Date().toISOString().split('T')[0];
+            if (collection === 'blog') {
               var tags = entry.getIn(['data', 'tags']);
-
               if (tags && tags.toJS) { tags = tags.toJS(); }
               if (!Array.isArray(tags)) { tags = ['post']; }
-              if (tags.indexOf('completed') === -1) { tags.push('completed'); }
 
-              entry = entry
-                .setIn(['data', 'completedDate'], today)
-                .setIn(['data', 'tags'], tags)
-                .setIn(['data', 'markDone'], undefined);
-            } else if (collection === 'blog') {
+              var hasCompleted = tags.indexOf('completed') !== -1 || tags.indexOf('complete') !== -1;
+              var today = new Date().toISOString().split('T')[0];
+
+              if (entry.getIn(['data', 'markDone']) === true && !hasCompleted) {
+                tags.push('completed');
+                entry = entry.setIn(['data', 'tags'], tags);
+              }
+
+              if (hasCompleted) {
+                // Ensure completed tasks always have a completion date
+                if (!entry.getIn(['data', 'completedDate'])) {
+                  entry = entry.setIn(['data', 'completedDate'], today);
+                }
+              } else {
+                // Strip completedDate from tasks that aren't done
+                entry = entry.setIn(['data', 'completedDate'], undefined);
+              }
+
               // Don't persist markDone to the file
               entry = entry.setIn(['data', 'markDone'], undefined);
             }

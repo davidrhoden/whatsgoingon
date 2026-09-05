@@ -29,7 +29,6 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
       - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false, hint: "Check and save to mark this task as done." }
-      - { label: "Completed Date", name: "completedDate", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: false, hint: "Set this when the task is done." }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Our pages e.g. About
   - name: "pages"
