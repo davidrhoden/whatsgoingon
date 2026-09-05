@@ -25,31 +25,8 @@
         return str.replace(/['''\u2018\u2019`]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
       }
 
-      function Control(props) {
-        var done = props.value === 'done';
-        return React.createElement('button', {
-          type: 'button',
-          id: props.forID,
-          onClick: function() { props.onChange('done'); },
-          style: {
-            padding: '0.5em 1em',
-            background: done ? '#22c55e' : '#64748b',
-            color: 'white',
-            border: 'none',
-            borderRadius: '0.25em',
-            cursor: 'pointer'
-          }
-        }, done ? 'Will be marked done on save' : 'Mark as Done');
-      }
-
-      function Preview() {
-        return null;
-      }
-
       window.addEventListener('load', function() {
         if (!window.CMS) return;
-
-        window.CMS.registerWidget('doneButton', Control, Preview);
 
         window.CMS.registerEventListener({
           name: 'preSave',
@@ -75,8 +52,8 @@
               }
             }
 
-            // Done button action (blog posts only)
-            if (collection === 'blog' && entry.getIn(['data', 'markDone']) === 'done') {
+            // Mark as Done action (blog posts only)
+            if (collection === 'blog' && entry.getIn(['data', 'markDone']) === true) {
               var today = new Date().toISOString().split('T')[0];
               var tags = entry.getIn(['data', 'tags']);
 
@@ -87,7 +64,10 @@
               entry = entry
                 .setIn(['data', 'completedDate'], today)
                 .setIn(['data', 'tags'], tags)
-                .setIn(['data', 'markDone'], null);
+                .setIn(['data', 'markDone'], undefined);
+            } else if (collection === 'blog') {
+              // Don't persist markDone to the file
+              entry = entry.setIn(['data', 'markDone'], undefined);
             }
 
             return entry;
