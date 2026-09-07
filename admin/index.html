@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Netlify CMS</title>
+    <title>Decap CMS</title>
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Netlify CMS -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <!-- Include Netlify Identity for authentication -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script type="module" src="/admin/preview-templates/index.js"></script>
@@ -32,7 +32,8 @@
           name: 'preSave',
           handler: function(args) {
             var entry = args.entry;
-            var title = entry.getIn(['data', 'title']);
+            var data = entry.get('data');
+            var title = data.get('title');
             var collection = entry.get('collection');
 
             // Duplicate title check (blog posts only)
@@ -54,33 +55,33 @@
 
             // Mark as Done action (blog posts only)
             if (collection === 'blog') {
-              var tags = entry.getIn(['data', 'tags']);
+              var tags = data.get('tags');
               if (tags && tags.toJS) { tags = tags.toJS(); }
               if (!Array.isArray(tags)) { tags = ['post']; }
 
               var hasCompleted = tags.indexOf('completed') !== -1 || tags.indexOf('complete') !== -1;
               var today = new Date().toISOString().split('T')[0];
 
-              if (entry.getIn(['data', 'markDone']) === true && !hasCompleted) {
+              if (data.get('markDone') === true && !hasCompleted) {
                 tags.push('completed');
-                entry = entry.setIn(['data', 'tags'], tags);
+                data = data.set('tags', tags);
               }
 
               if (hasCompleted) {
                 // Ensure completed tasks always have a completion date
-                if (!entry.getIn(['data', 'completedDate'])) {
-                  entry = entry.setIn(['data', 'completedDate'], today);
+                if (!data.get('completedDate')) {
+                  data = data.set('completedDate', today);
                 }
               } else {
                 // Strip completedDate from tasks that aren't done
-                entry = entry.setIn(['data', 'completedDate'], undefined);
+                data = data.delete('completedDate');
               }
 
               // Don't persist markDone to the file
-              entry = entry.setIn(['data', 'markDone'], undefined);
+              data = data.delete('markDone');
             }
 
-            return entry.get('data');
+            return data;
           }
         });
       });
