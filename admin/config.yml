@@ -30,7 +30,7 @@ collections:
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
-      - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false }
+      - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false, required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Our pages e.g. About
   - name: "pages"
