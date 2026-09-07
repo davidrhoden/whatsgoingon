@@ -8,6 +8,7 @@ tags:
   - meta
   - daverhoden site
   - completed
+completedDate: 2026-09-07
 ---
 
 It's for applying styles. It could be more than one class.
