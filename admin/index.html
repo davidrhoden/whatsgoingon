@@ -64,6 +64,7 @@
 
               if (data.get('markDone') === true && !hasCompleted) {
                 tags.push('completed');
+                hasCompleted = true;
                 data = data.set('tags', tags);
               }
 
@@ -79,6 +80,26 @@
 
               // Don't persist markDone to the file
               data = data.delete('markDone');
+
+              // Mark as Won't Do (blog posts only) — only ever adds, mirrors markDone
+              var hasWontdo = tags.indexOf('wontdo') !== -1;
+              if (data.get('markWontdo') === true) {
+                if (!hasWontdo) {
+                  tags.push('wontdo');
+                  data = data.set('tags', tags);
+                }
+                // Won't Do supersedes Done — drop the done markers
+                if (hasCompleted) {
+                  tags = tags.filter(function(t) {
+                    return t !== 'completed' && t !== 'complete';
+                  });
+                  data = data.set('tags', tags);
+                  data = data.delete('completedDate');
+                }
+              }
+
+              // Don't persist markWontdo to the file
+              data = data.delete('markWontdo');
             }
 
             return data;

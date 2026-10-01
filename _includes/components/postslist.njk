@@ -10,6 +10,10 @@
 	  				{% set completedClass %}{{ tag }}{% endset %}
 	  			{{ completedClass }}
 	  			{%- endif -%}
+	  			{%- if tag == "wontdo" -%}
+	  				{% set wontdoClass %}{{ tag }}{% endset %}
+	  			{{ wontdoClass }}
+	  			{%- endif -%}
 				{% endfor %}
 		{% endif %}
 		{% if isImageOnly %}image-only{% endif %}"{% if client and client.color %} style="background: {{ client.color }};"{% endif %}>

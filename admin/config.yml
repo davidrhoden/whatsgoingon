@@ -37,6 +37,7 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
       - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false, required: false }
+      - { label: "Won't Do", name: "markWontdo", widget: "boolean", default: false, required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Client list — drives slide background colors and holds contact info
   - name: "clients"

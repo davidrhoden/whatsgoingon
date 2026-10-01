@@ -118,16 +118,17 @@ document.addEventListener('DOMContentLoaded', function() {
     var slug = article.dataset.slug;
     if (!slug) return;
 
-    // Persist to GitHub if marking done
-    if (status === 'done') {
+    // Persist the mark to the post file (via Netlify function) when possible
+    var functionName = status === 'done' ? 'mark-done' : status === 'wontdo' ? 'mark-wontdo' : null;
+    if (functionName) {
       var post = (window.WGO_POSTS || []).find(function(p) { return p.slug === slug; });
       if (post && post.inputPath) {
-        fetch('/.netlify/functions/mark-done', {
+        fetch('/.netlify/functions/' + functionName, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ inputPath: post.inputPath })
         }).catch(function(err) {
-          console.warn('mark-done function error:', err);
+          console.warn(functionName + ' function error:', err);
         });
       }
     }

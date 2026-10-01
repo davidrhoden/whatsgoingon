@@ -5,5 +5,6 @@ client: Anonymous
 image: /static/img/baby-with-detonator-may-9-2026.png
 tags:
   - post
+  - completed
 completedDate: 2026-08-29T13:00:22.505Z
 ---

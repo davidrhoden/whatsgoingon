@@ -7,66 +7,29 @@ section: done
 
 <p><a href="/">&larr; Back to task tracker</a></p>
 
-<section class="done-list" id="done-list">
-  <p id="done-empty" style="display:none">No completed tasks yet.</p>
+<section class="done-list">
+	{% if collections.done | length == 0 %}
+		<p id="done-empty">No completed tasks yet.</p>
+	{% else %}
+		{% for post in collections.done | reverse %}
+			<article class="done-item">
+				<h3>
+					<a href="{{ post.url | url }}">{{ post.data.title or post.fileSlug }}</a>
+				</h3>
+				<ul class="done-meta">
+					<li><strong>Client:</strong> <a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a></li>
+					{% if post.data.tags %}
+						<li><strong>Tags:</strong>
+							{% for tag in post.data.tags %}
+				  				{%- if tag != "post" and tag != "completed" and tag != "complete" -%}
+				  					<a href="/tags/{{ tag }}/" rel="tag">{{ tag }}</a>{% if not loop.last %} {% endif %}
+				  				{%- endif -%}
+							{% endfor %}
+						</li>
+					{% endif %}
+					<li><strong>Age at completion:</strong> {{ post.date | ageAtCompletion(post.data.completedDate) }} days</li>
+				</ul>
+			</article>
+		{% endfor %}
+	{% endif %}
 </section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var posts = window.WGO_POSTS || [];
-  var marked;
-  try { marked = JSON.parse(localStorage.getItem('wgo-marked') || '{}'); }
-  catch(e) { marked = {}; }
-
-  function getStatus(entry) {
-    if (!entry) return null;
-    return typeof entry === 'object' ? entry.status : entry;
-  }
-
-  function slugify(str) {
-    if (!str) return '';
-    return str.replace(/['''\u2018\u2019`]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-  }
-
-  var donePosts = posts.filter(function(p) {
-    return getStatus(marked[p.slug]) === 'done';
-  });
-
-  var list = document.getElementById('done-list');
-  var empty = document.getElementById('done-empty');
-
-  if (!donePosts.length) {
-    empty.style.display = '';
-    return;
-  }
-
-  donePosts.forEach(function(p) {
-    var entry = marked[p.slug];
-    var markedAt = entry && typeof entry === 'object' ? entry.markedAt : null;
-    var startMs = new Date(p.date).getTime();
-    var endMs = markedAt || Date.now();
-    var days = Math.floor((endMs - startMs) / 86400000);
-
-    var tags = (p.tags || []).filter(function(t) {
-      return t !== 'post' && t !== 'completed' && t !== 'complete';
-    });
-    var tagsHtml = tags.length
-      ? '<li><strong>Tags:</strong> ' + tags.map(function(t) {
-          return '<a href="/tags/' + t + '/" rel="tag">' + t + '</a>';
-        }).join(' ') + '</li>'
-      : '';
-
-    var article = document.createElement('article');
-    article.className = 'done-item';
-    article.innerHTML =
-      '<h3><a href="' + p.url + '">' + p.title + '</a></h3>' +
-      '<ul class="done-meta">' +
-        '<li><strong>Client:</strong> <a href="/clients/' + slugify(p.client) + '/">' + p.client + '</a></li>' +
-        tagsHtml +
-        '<li><strong>Age at completion:</strong> ' + days + ' days</li>' +
-      '</ul>';
-
-    list.appendChild(article);
-  });
-});
-</script>
