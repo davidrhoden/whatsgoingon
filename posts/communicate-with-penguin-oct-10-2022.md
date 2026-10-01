@@ -1,8 +1,9 @@
 ---
 title: Communicate with Penguin Random House contacts
 date: 2022-10-10
-author: "kid's book"
+author: kid's book
 hours: 0
+summary: Communicate with Penguin Random House contacts
 tags:
   - Even Steven
 ---
