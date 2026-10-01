@@ -2,6 +2,7 @@
 	{% for post in postslist | reverse %}
 
 		{% set isImageOnly = post.data.image and not post.data.title %}
+		{% set client = clients | clientByName(post.data.author) %}
 		<article data-slug="{{ post.fileSlug }}" class="class{{ loop.index }} {{ post.data.author | slug }}
 		{% if post.data.tags %}
 				{% for tag in post.data.tags %}
@@ -11,7 +12,7 @@
 	  			{%- endif -%}
 				{% endfor %}
 		{% endif %}
-		{% if isImageOnly %}image-only{% endif %}">
+		{% if isImageOnly %}image-only{% endif %}"{% if client and client.color %} style="background: {{ client.color }};"{% endif %}>
 			<div class="centerer">
 				{% if isImageOnly %}
 					<img src="{{ post.data.image }}" alt="">

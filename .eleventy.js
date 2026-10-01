@@ -84,6 +84,18 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Look up a client record (from clients/*.md) by post author name
+  eleventyConfig.addFilter("clientByName", function(clients, name) {
+    if (!clients || !name) return null;
+    const slugify = str => str
+      .replace(/['''\u2018\u2019`]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    const target = slugify(name);
+    return clients.find(c => c && slugify(c.name) === target) || null;
+  });
+
   // Slug filter - strips apostrophes/smart quotes before slugifying
   eleventyConfig.addFilter("slug", function(str) {
     if (!str) return "";
@@ -140,7 +152,7 @@ module.exports = function(eleventyConfig) {
 
   // Minify HTML output
   eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
-    if (outputPath.indexOf(".html") > -1) {
+    if (typeof outputPath === "string" && outputPath.indexOf(".html") > -1) {
       let minified = htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,

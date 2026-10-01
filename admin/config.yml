@@ -32,6 +32,18 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
       - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false, required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
+  # Client list — drives slide background colors and holds contact info
+  - name: "clients"
+    label: "Client"
+    folder: "clients"
+    create: true
+    identifier_field: name
+    slug: "{{slug}}"
+    fields:
+      - { label: "Client Name", name: "name", widget: "string" }
+      - { label: "Contact Name", name: "contactName", widget: "string", required: false }
+      - { label: "Contact Email", name: "contactEmail", widget: "string", required: false }
+      - { label: "Color", name: "color", widget: "color", required: false }
   # Our pages e.g. About
   - name: "pages"
     label: "Page"
