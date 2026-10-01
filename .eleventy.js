@@ -19,20 +19,20 @@ module.exports = function(eleventyConfig) {
   // https://www.11ty.dev/docs/data-deep-merge/
   eleventyConfig.setDataDeepMerge(true);
 
-  // Add support for maintenance-free post authors
-  // Adds an authors collection using the author key in our post frontmatter
+  // Add support for maintenance-free post clients
+  // Adds an authors collection using the client key in our post frontmatter
   // Thanks to @pdehaan: https://github.com/pdehaan
-  eleventyConfig.addCollection("authors", collection => {
+  eleventyConfig.addCollection("clients", collection => {
     const blogs = collection.getFilteredByGlob("posts/*.md");
     return blogs.reduce((coll, post) => {
-      const author = post.data.author;
-      if (!author) {
+      const client = post.data.client;
+      if (!client) {
         return coll;
       }
-      if (!coll.hasOwnProperty(author)) {
-        coll[author] = [];
+      if (!coll.hasOwnProperty(client)) {
+        coll[client] = [];
       }
-      coll[author].push(post.data);
+      coll[client].push(post.data);
       return coll;
     }, {});
   });
@@ -44,7 +44,7 @@ module.exports = function(eleventyConfig) {
       title: p.data.title || p.fileSlug,
       url: p.url,
       date: p.date,
-      author: p.data.author || '',
+      client: p.data.client || '',
       tags: p.data.tags || [],
       completedDate: p.data.completedDate || null,
       inputPath: p.inputPath
@@ -84,7 +84,7 @@ module.exports = function(eleventyConfig) {
     });
   });
 
-  // Look up a client record (from clients/*.md) by post author name
+  // Look up a client record (from clients/*.md) by post client name
   eleventyConfig.addFilter("clientByName", function(clients, name) {
     if (!clients || !name) return null;
     const slugify = str => str

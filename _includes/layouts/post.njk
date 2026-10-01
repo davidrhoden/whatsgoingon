@@ -2,13 +2,13 @@
 layout: layouts/base.njk
 section: post
 ---
-<section class="{{ author | slug }} full-width">
+<section class="{{ client | slug }} full-width">
   <article>
     <div class="centerer">
       {% if title %}<h3>{{ title }}</h3>{% endif %}
       <p>
         <small>
-          <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/authors/{{ author | slug }}/">{{ author }}</a>
+          <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/clients/{{ client | slug }}/">{{ client }}</a>
         </small>
       </p>
 

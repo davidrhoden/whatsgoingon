@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     article.innerHTML =
       '<h3><a href="' + p.url + '">' + p.title + '</a></h3>' +
       '<ul class="done-meta">' +
-        '<li><strong>Client:</strong> <a href="/authors/' + slugify(p.author) + '/">' + p.author + '</a></li>' +
+        '<li><strong>Client:</strong> <a href="/clients/' + slugify(p.client) + '/">' + p.client + '</a></li>' +
         tagsHtml +
         '<li><strong>Age at completion:</strong> ' + days + ' days</li>' +
       '</ul>';

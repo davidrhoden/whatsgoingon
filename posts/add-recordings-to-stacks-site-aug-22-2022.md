@@ -1,7 +1,7 @@
 ---
 title: Add recordings to Stacks site
 date: 2022-08-22
-author: The Stacks
+client: The Stacks
 summary: due date August 24 2026
 tags:
   - The Stacks

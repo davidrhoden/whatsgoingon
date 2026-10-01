@@ -17,7 +17,7 @@ const Post = createClass({
         dateLabel = format(parsed, "dd MMM, yyyy");
       }
     }
-    const author = entry.getIn(["data", "author"], "");
+    const author = entry.getIn(["data", "client"], "");
 
     return html`
       <main>

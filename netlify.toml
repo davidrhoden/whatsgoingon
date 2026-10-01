@@ -19,6 +19,12 @@
   [headers.values]
     Cache-Control = "no-cache, no-store, must-revalidate"
 
+# Redirect old author archive URLs to the renamed client archive
+[[redirects]]
+  from = "/authors/*"
+  to = "/clients/:splat"
+  status = 301
+
 # REDIRECT and HEADERS examples
 
 # Redirect rule example

@@ -1,5 +1,11 @@
 # Netlify CMS Configuration File
 
+# Local dev: serve the admin from the local git repo via decap-server.
+# Only active when served from localhost AND decap-server is running on 8082 —
+# otherwise Decap ignores this and uses the git-gateway backend below.
+local_backend:
+  url: http://localhost:8082/api/v1
+
 # The backend option specifies how to access the content for your site
 backend:
   name: git-gateway
@@ -26,7 +32,7 @@ collections:
         name: title
         widget: string
       - { label: "Publish Date", name: "date", widget: "datetime", default: "{{now}}" }
-      - { label: "Author", name: "author", widget: "string", default: "Anonymous" }
+      - { label: "Client", name: "client", widget: "relation", collection: "clients", search_fields: ["name"], value_field: "name", display_fields: ["name"], default: "Anonymous" }
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
