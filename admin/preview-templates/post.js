@@ -8,21 +8,25 @@ const Post = createClass({
   render() {
     const entry = this.props.entry;
 
+    // date can be empty on new/unsaved entries — guard before formatting
+    let dateLabel = "";
+    const rawDate = entry.getIn(["data", "date"]);
+    if (rawDate) {
+      const parsed = new Date(rawDate);
+      if (!isNaN(parsed.getTime())) {
+        dateLabel = format(parsed, "dd MMM, yyyy");
+      }
+    }
+    const author = entry.getIn(["data", "author"], "");
+
     return html`
       <main>
         <article>
           <h1>${entry.getIn(["data", "title"], null)}</h1>
           <p>
             <small>
-              <time
-                >${
-                  format(
-                    entry.getIn(["data", "date"], new Date()),
-                    "dd MMM, yyyy"
-                  )
-                }</time
-              >
-              ${" by Author"}
+              ${dateLabel ? html`<time>${dateLabel}</time>` : ""}
+              ${author ? " by " + author : ""}
             </small>
           </p>
 
