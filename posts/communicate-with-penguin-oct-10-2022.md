@@ -7,5 +7,4 @@ summary: Communicate with Penguin Random House contacts
 tags:
   - Even Steven
 ---
-
-Communicate with Penguin Random House contacts, Melanie Koch and/or Dennis Shealy.
+Communicate with Penguin Random House contacts, Melanie Koch and/or Dennis Shealy. Do it soon.
