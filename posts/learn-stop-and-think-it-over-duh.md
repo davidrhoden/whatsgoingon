@@ -6,5 +6,6 @@ tags:
   - post
   - songs
   - "'Compulsive gamblers'"
+  - fish
 ---
 Learn.
