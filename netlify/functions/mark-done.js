@@ -44,7 +44,7 @@ exports.handler = async function(event) {
   const fileData = await getRes.json();
 
   const currentContent = Buffer.from(fileData.content, 'base64').toString('utf8');
-  const updatedContent = addCompleted(currentContent);
+  const updatedContent = markDone(currentContent);
 
   if (updatedContent === currentContent) {
     // Already marked completed — nothing to do
@@ -73,9 +73,33 @@ exports.handler = async function(event) {
   return { statusCode: 200, body: JSON.stringify({ ok: true }) };
 };
 
-function addCompleted(content) {
-  const today = new Date().toISOString().split('T')[0];
+// -- frontmatter helpers ------------------------------------------------
 
+function getTags(fm) {
+  const block = fm.match(/^tags:(?:\n[ \t]+-[^\n]*)*/m);
+  if (!block) return [];
+  return [...block[0].matchAll(/^[ \t]+-\s*([^\s]+)\s*$/gm)].map(m => m[1]);
+}
+
+function updateTags(fm, tags) {
+  const tagsYaml = 'tags:' + tags.map(t => `\n  - ${t}`).join('');
+  if (/^tags:/m.test(fm)) {
+    return fm.replace(/^tags:(?:\n[ \t]+-[^\n]*)*/m, tagsYaml);
+  }
+  return fm.trimEnd() + '\n' + tagsYaml;
+}
+
+function setStatus(fm, status) {
+  if (/^status:/m.test(fm)) {
+    return fm.replace(/^status:.*$/m, `status: ${status}`);
+  }
+  if (/^client:/m.test(fm)) {
+    return fm.replace(/^(client:.*)$/m, `$1\nstatus: ${status}`);
+  }
+  return fm.trimEnd() + `\nstatus: ${status}`;
+}
+
+function markDone(content) {
   // Must start with ---
   if (!content.startsWith('---')) return content;
   const closingIdx = content.indexOf('\n---', 3);
@@ -83,23 +107,24 @@ function addCompleted(content) {
 
   let fm = content.slice(3, closingIdx);        // frontmatter body (no --- delimiters)
   const rest = content.slice(closingIdx);       // "\n---\n..." (closing delimiter + body)
+  const today = new Date().toISOString().split('T')[0];
 
-  // Add completedDate if not already present
+  // tags: add "completed", drop "wontdo"
+  let tags = getTags(fm).filter(t => t !== 'wontdo');
+  if (!tags.includes('completed') && !tags.includes('complete')) {
+    tags.push('completed');
+  }
+  fm = updateTags(fm, tags);
+
+  // status: done
+  fm = setStatus(fm, 'done');
+
+  // completedDate
   if (!/^completedDate:/m.test(fm)) {
     if (/^tags:/m.test(fm)) {
       fm = fm.replace(/^(tags:)/m, `completedDate: ${today}\n$1`);
     } else {
       fm = fm.trimEnd() + `\ncompletedDate: ${today}`;
-    }
-  }
-
-  // Add "completed" tag if not already present
-  if (!/^\s*-\s*completed\s*$/m.test(fm)) {
-    if (/^tags:/m.test(fm)) {
-      // Append to end of tags list
-      fm = fm.replace(/(^tags:(?:\n[ \t]+-[^\n]*)*)/m, `$1\n  - completed`);
-    } else {
-      fm = fm.trimEnd() + `\ntags:\n  - completed`;
     }
   }
 
