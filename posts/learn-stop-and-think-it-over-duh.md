@@ -5,5 +5,8 @@ client: The Stacks
 status: open
 tags:
   - post
+  - songs
+  - "'Compulsive gamblers'"
+  - fish
 ---
 Learn.
