@@ -20,6 +20,12 @@
         .then(function(posts) { knownPosts = posts; })
         .catch(function() {});
 
+      // Client list (name, color, contacts) for previews
+      fetch('/clients.json')
+        .then(function(r) { return r.json(); })
+        .then(function(clients) { window.CLIENTS = clients; })
+        .catch(function() {});
+
       function slugify(str) {
         if (!str) return '';
         return str.replace(/['''\u2018\u2019`]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -53,53 +59,40 @@
               }
             }
 
-            // Mark as Done action (blog posts only)
+            // Status action (blog posts only): keep tags + completedDate in sync
+            // with the editor-facing `status` field (open | done | wontdo)
             if (collection === 'blog') {
               var tags = data.get('tags');
               if (tags && tags.toJS) { tags = tags.toJS(); }
               if (!Array.isArray(tags)) { tags = ['post']; }
 
-              var hasCompleted = tags.indexOf('completed') !== -1 || tags.indexOf('complete') !== -1;
               var today = new Date().toISOString().split('T')[0];
+              var status = data.get('status');
 
-              if (data.get('markDone') === true && !hasCompleted) {
-                tags.push('completed');
-                hasCompleted = true;
+              if (status === 'done') {
+                if (tags.indexOf('completed') === -1 && tags.indexOf('complete') === -1) {
+                  tags.push('completed');
+                }
+                tags = tags.filter(function(t) { return t !== 'wontdo'; });
                 data = data.set('tags', tags);
-              }
-
-              if (hasCompleted) {
-                // Ensure completed tasks always have a completion date
                 if (!data.get('completedDate')) {
                   data = data.set('completedDate', today);
                 }
+              } else if (status === 'wontdo') {
+                if (tags.indexOf('wontdo') === -1) {
+                  tags.push('wontdo');
+                }
+                tags = tags.filter(function(t) { return t !== 'completed' && t !== 'complete'; });
+                data = data.set('tags', tags);
+                data = data.delete('completedDate');
               } else {
-                // Strip completedDate from tasks that aren't done
+                // open — strip any completion / wontdo markers
+                tags = tags.filter(function(t) { return t !== 'completed' && t !== 'complete' && t !== 'wontdo'; });
+                data = data.set('tags', tags);
                 data = data.delete('completedDate');
               }
 
-              // Don't persist markDone to the file
-              data = data.delete('markDone');
-
-              // Mark as Won't Do (blog posts only) — only ever adds, mirrors markDone
-              var hasWontdo = tags.indexOf('wontdo') !== -1;
-              if (data.get('markWontdo') === true) {
-                if (!hasWontdo) {
-                  tags.push('wontdo');
-                  data = data.set('tags', tags);
-                }
-                // Won't Do supersedes Done — drop the done markers
-                if (hasCompleted) {
-                  tags = tags.filter(function(t) {
-                    return t !== 'completed' && t !== 'complete';
-                  });
-                  data = data.set('tags', tags);
-                  data = data.delete('completedDate');
-                }
-              }
-
-              // Don't persist markWontdo to the file
-              data = data.delete('markWontdo');
+              // status stays in the file — it's the field the editor displays
             }
 
             return data;
