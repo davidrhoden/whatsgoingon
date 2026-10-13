@@ -27,6 +27,13 @@ collections:
     create: true # Allow users to create new documents in this collection
     identifier_field: title
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    summary: "created {{date | date('MMM D, YYYY')}} · {{client}} · {{completedDate | ternary('done','open')}}"
+    sortable_fields:
+      - commit_date
+      - date
+      - completedDate
+      - title
+      - client
     fields: # The fields for each document, usually in front matter
       - label: "Title"
         name: title
@@ -36,8 +43,7 @@ collections:
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
-      - { label: "Mark as Done", name: "markDone", widget: "boolean", default: false, required: false }
-      - { label: "Won't Do", name: "markWontdo", widget: "boolean", default: false, required: false }
+      - { label: "Status", name: "status", widget: "select", options: ["open", "done", "wontdo"], default: "open", required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Client list — drives slide background colors and holds contact info
   - name: "clients"
