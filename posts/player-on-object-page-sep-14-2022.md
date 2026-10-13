@@ -2,6 +2,7 @@
 title: Get the audio player to show on object pages
 date: 2022-09-14
 client: ADP
+status: open
 summary:
 hours: 0
 tags:

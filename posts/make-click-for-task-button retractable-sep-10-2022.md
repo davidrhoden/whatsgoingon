@@ -2,6 +2,7 @@
 title: Make the "Click To Add Task" button retractable.
 date: 2022-09-10T17:16:20.893Z
 client: daverhoden site
+status: open
 summary: Make the "Click To Add Task" button retractable.
 tags:
   - post

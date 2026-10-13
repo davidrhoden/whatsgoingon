@@ -5,6 +5,7 @@ metaDescription: This is a sample meta description. If one is not present in
   instead.
 date: 2022-08-23T00:00:00.000Z
 client: David Rhoden
+status: open
 summary: Cut up some wood scraps to paint on.
 tags:
   - art
