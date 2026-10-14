@@ -27,7 +27,11 @@ collections:
     create: true # Allow users to create new documents in this collection
     identifier_field: title
     slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    summary: "created {{date | date('MMM D, YYYY')}} · updated {{commit_date | date('MMM D, YYYY')}} · {{client}} · {{completedDate | ternary('done','open')}}"
+    summary: "{{title}} — {{client}} · created {{date | date('MMM D, YYYY')}} · updated {{commit_date | date('MMM D, YYYY')}} · {{completedDate | ternary('done','open')}}"
+    view_filters:
+      - { label: "Open", field: status, pattern: "open" }
+      - { label: "Done", field: status, pattern: "done" }
+      - { label: "Won't do", field: status, pattern: "wontdo" }
     sortable_fields:
       - commit_date
       - date
