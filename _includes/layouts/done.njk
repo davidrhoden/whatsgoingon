@@ -22,7 +22,7 @@ section: done
 						<li><strong>Tags:</strong>
 							{% for tag in post.data.tags %}
 				  				{%- if tag != "post" and tag != "completed" and tag != "complete" -%}
-				  					<a href="/tags/{{ tag }}/" rel="tag">{{ tag }}</a>{% if not loop.last %} {% endif %}
+				  					<a href="/tags/{{ tag | slug }}/" rel="tag">{{ tag }}</a>{% if not loop.last %} {% endif %}
 				  				{%- endif -%}
 							{% endfor %}
 						</li>

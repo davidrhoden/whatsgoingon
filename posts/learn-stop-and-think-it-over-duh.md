@@ -6,7 +6,7 @@ status: open
 tags:
   - post
   - songs
-  - "'Compulsive gamblers'"
+  - "Compulsive gamblers"
   - fish
 ---
 Learn.

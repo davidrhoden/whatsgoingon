@@ -18,7 +18,7 @@ section: post
         <p>
         {% for tag in tags %}
           {%- if tag != "post" -%}
-            {% set tagUrl %}/tags/{{ tag }}/{% endset %}
+            {% set tagUrl %}/tags/{{ tag | slug }}/{% endset %}
             <a href="{{ tagUrl | url }}" rel="tag">{{ tag }}</a>
           {%- endif -%}
         {% endfor %}
