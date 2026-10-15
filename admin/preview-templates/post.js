@@ -37,14 +37,21 @@ const Post = createClass({
     const dateLabel = formatDate(entry.getIn(["data", "date"]));
     const doneLabel = formatDate(completedDate);
 
-    const badgeStyle =
-      "display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;" +
-      "color:#fff;margin:0 0 8px;text-transform:uppercase;letter-spacing:.1em;";
+    const badgeStyle = {
+      display: "inline-block",
+      padding: "2px 8px",
+      borderRadius: "4px",
+      fontSize: "12px",
+      color: "#fff",
+      margin: "0 0 8px",
+      textTransform: "uppercase",
+      letterSpacing: ".1em"
+    };
     const statusBadge =
       status === "done"
-        ? html`<span style="${badgeStyle}background:#008000;">&#10003; Done${doneLabel ? " " + doneLabel : ""}</span>`
+        ? html`<span style=${{ ...badgeStyle, background: "#008000" }}>&#10003; Done${doneLabel ? " " + doneLabel : ""}</span>`
         : status === "wontdo"
-          ? html`<span style="${badgeStyle}background:#555;">&#10007; Won't Do</span>`
+          ? html`<span style=${{ ...badgeStyle, background: "#555" }}>&#10007; Won't Do</span>`
           : "";
 
     let tags = entry.getIn(["data", "tags"], []);
@@ -53,7 +60,7 @@ const Post = createClass({
 
     return html`
       <main>
-        <article style="background: ${bg};">
+        <article style=${{ background: bg }}>
           <div class="centerer">
             ${statusBadge}
             <h3>${entry.getIn(["data", "title"], null)}</h3>
