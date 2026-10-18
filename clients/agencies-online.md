@@ -1,6 +1,6 @@
 ---
 name: Agencies Online
-contactName: ""
-contactEmail: ""
-color: "#FF69B4"
+contactName: Val Jordan
+contactEmail: valjordan@agenciesonline.biz
+color: '#FF69B4'
 ---
