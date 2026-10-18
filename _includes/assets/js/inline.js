@@ -1,3 +1,14 @@
+(function() {
+  var param = new URLSearchParams(location.search).get('kiosk');
+  try {
+    if (param === '0') localStorage.removeItem('kiosk');
+    else if (param !== null) localStorage.setItem('kiosk', '1');
+    if (localStorage.getItem('kiosk')) document.documentElement.classList.add('kiosk');
+  } catch (e) {
+    if (param !== null && param !== '0') document.documentElement.classList.add('kiosk');
+  }
+})();
+
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", user => {
     if (!user) {

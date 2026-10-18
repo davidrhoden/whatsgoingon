@@ -15,6 +15,33 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+html {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+	display: none;
+}
+
+.kiosk header,
+.kiosk #admin-panel {
+	display: none;
+}
+
+.kiosk main {
+	margin-top: 0;
+}
+
+.kiosk article.image-only {
+	padding-top: 0;
+}
+
+.kiosk article.image-only .centerer {
+	height: calc(100vh - 2rem);
+}
+
 body {
 	display: grid;
 	height: 100vh;
