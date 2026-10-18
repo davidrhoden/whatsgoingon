@@ -93,12 +93,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function goTo(index) {
     if (!activeArticles.length) return;
+    var wrapped = index < 0 || index >= activeArticles.length;
     currentIndex = ((index % activeArticles.length) + activeArticles.length) % activeArticles.length;
-    gsap.to(window, {
-      duration: 0.8,
-      scrollTo: { y: activeArticles[currentIndex], offsetY: 0 },
-      ease: 'power2.inOut'
-    });
+    if (wrapped && activeArticles.length > 1) {
+      var fade = document.getElementById('slide-fade');
+      if (!fade) {
+        fade = document.createElement('div');
+        fade.id = 'slide-fade';
+        fade.style.cssText = 'position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:20';
+        document.body.appendChild(fade);
+      }
+      var target = activeArticles[currentIndex];
+      gsap.killTweensOf(window);
+      gsap.timeline()
+        .to(fade, { opacity: 1, duration: 1.5 })
+        .add(function() { window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY); })
+        .to(fade, { opacity: 0, duration: 0.5 });
+    } else {
+      gsap.to(window, {
+        duration: 0.8,
+        scrollTo: { y: activeArticles[currentIndex], offsetY: 0 },
+        ease: 'power2.inOut'
+      });
+    }
     updateCounter();
     updateEditLink();
     if (!paused) resetTimer();
