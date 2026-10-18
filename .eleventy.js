@@ -76,13 +76,13 @@ module.exports = function(eleventyConfig) {
     return [];
   });
 
-  // Done tasks collection (tagged "completed" or "complete")
+  // Done tasks collection (status: done)
   eleventyConfig.addCollection("done", collection => {
-    return collection.getFilteredByGlob("posts/*.md").filter(post => {
-      const tags = post.data.tags || [];
-      return tags.includes("completed") || tags.includes("complete");
-    });
+    return collection.getFilteredByGlob("posts/*.md").filter(post => post.data.status === "done");
   });
+
+  // Keep only open tasks (anything not marked done or wontdo)
+  eleventyConfig.addFilter("openOnly", posts => (posts || []).filter(p => !["done", "wontdo"].includes(p.data.status)));
 
   // Look up a client record (from clients/*.md) by post client name
   eleventyConfig.addFilter("clientByName", function(clients, name) {

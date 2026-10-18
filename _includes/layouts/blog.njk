@@ -6,5 +6,5 @@ permalink: /blog/index.html
 
 {{ layoutContent | safe }}
 
-{% set postslist = collections.post %}
+{% set postslist = collections.post | openOnly %}
 {% include "components/postslist.njk" %}

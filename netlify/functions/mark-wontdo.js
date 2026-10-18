@@ -75,20 +75,6 @@ exports.handler = async function(event) {
 
 // -- frontmatter helpers ------------------------------------------------
 
-function getTags(fm) {
-  const block = fm.match(/^tags:(?:\n[ \t]+-[^\n]*)*/m);
-  if (!block) return [];
-  return [...block[0].matchAll(/^[ \t]+-\s*([^\s]+)\s*$/gm)].map(m => m[1]);
-}
-
-function updateTags(fm, tags) {
-  const tagsYaml = 'tags:' + tags.map(t => `\n  - ${t}`).join('');
-  if (/^tags:/m.test(fm)) {
-    return fm.replace(/^tags:(?:\n[ \t]+-[^\n]*)*/m, tagsYaml);
-  }
-  return fm.trimEnd() + '\n' + tagsYaml;
-}
-
 function setStatus(fm, status) {
   if (/^status:/m.test(fm)) {
     return fm.replace(/^status:.*$/m, `status: ${status}`);
@@ -107,13 +93,6 @@ function markWontdo(content) {
 
   let fm = content.slice(3, closingIdx);        // frontmatter body (no --- delimiters)
   const rest = content.slice(closingIdx);       // "\n---\n..." (closing delimiter + body)
-
-  // tags: add "wontdo", drop "completed"/"complete"
-  let tags = getTags(fm).filter(t => t !== 'completed' && t !== 'complete');
-  if (!tags.includes('wontdo')) {
-    tags.push('wontdo');
-  }
-  fm = updateTags(fm, tags);
 
   // status: wontdo
   fm = setStatus(fm, 'wontdo');

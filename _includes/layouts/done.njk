@@ -21,7 +21,7 @@ section: done
 					{% if post.data.tags %}
 						<li><strong>Tags:</strong>
 							{% for tag in post.data.tags %}
-				  				{%- if tag != "post" and tag != "completed" and tag != "complete" -%}
+				  				{%- if tag != "post" -%}
 				  					<a href="/tags/{{ tag | slug }}/" rel="tag">{{ tag }}</a>{% if not loop.last %} {% endif %}
 				  				{%- endif -%}
 							{% endfor %}

@@ -58,40 +58,18 @@
               }
             }
 
-            // Status action (blog posts only): keep tags + completedDate in sync
-            // with the editor-facing `status` field (open | done | wontdo)
+            // Status action (blog posts only): keep completedDate in sync with
+            // the editor-facing `status` field (open | done | wontdo)
             if (collection === 'blog') {
-              var tags = data.get('tags');
-              if (tags && tags.toJS) { tags = tags.toJS(); }
-              if (!Array.isArray(tags)) { tags = ['post']; }
-
               var today = new Date().toISOString().split('T')[0];
-              var status = data.get('status');
 
-              if (status === 'done') {
-                if (tags.indexOf('completed') === -1 && tags.indexOf('complete') === -1) {
-                  tags.push('completed');
-                }
-                tags = tags.filter(function(t) { return t !== 'wontdo'; });
-                data = data.set('tags', tags);
+              if (data.get('status') === 'done') {
                 if (!data.get('completedDate')) {
                   data = data.set('completedDate', today);
                 }
-              } else if (status === 'wontdo') {
-                if (tags.indexOf('wontdo') === -1) {
-                  tags.push('wontdo');
-                }
-                tags = tags.filter(function(t) { return t !== 'completed' && t !== 'complete'; });
-                data = data.set('tags', tags);
-                data = data.delete('completedDate');
               } else {
-                // open — strip any completion / wontdo markers
-                tags = tags.filter(function(t) { return t !== 'completed' && t !== 'complete' && t !== 'wontdo'; });
-                data = data.set('tags', tags);
                 data = data.delete('completedDate');
               }
-
-              // status stays in the file — it's the field the editor displays
             }
 
             return data;

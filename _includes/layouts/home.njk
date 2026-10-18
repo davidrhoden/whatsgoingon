@@ -3,5 +3,5 @@ layout: layouts/base.njk
 section: home
 ---
 
-{% set postslist = collections.post %}
+{% set postslist = collections.post | openOnly %}
 {% include "components/postslist.njk" %}

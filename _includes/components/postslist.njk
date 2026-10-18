@@ -4,18 +4,7 @@
 		{% set isImageOnly = post.data.image and not post.data.title %}
 		{% set client = clients | clientByName(post.data.client) %}
 		<article data-slug="{{ post.fileSlug }}" class="class{{ loop.index }} {{ post.data.client | slug }}
-		{% if post.data.tags %}
-				{% for tag in post.data.tags %}
-	  			{%- if tag == "completed" -%}
-	  				{% set completedClass %}{{ tag }}{% endset %}
-	  			{{ completedClass }}
-	  			{%- endif -%}
-	  			{%- if tag == "wontdo" -%}
-	  				{% set wontdoClass %}{{ tag }}{% endset %}
-	  			{{ wontdoClass }}
-	  			{%- endif -%}
-				{% endfor %}
-		{% endif %}
+		{% if post.data.status == "done" %}completed{% elif post.data.status == "wontdo" %}wontdo{% endif %}
 		{% if isImageOnly %}image-only{% endif %}"{% if client and client.color %} style="background: {{ client.color }};"{% endif %}>
 			<div class="centerer">
 				{% if isImageOnly %}

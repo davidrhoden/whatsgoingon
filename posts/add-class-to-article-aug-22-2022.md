@@ -8,7 +8,6 @@ title: Add a class to <article> based on the author or tag names
 tags:
   - meta
   - daverhoden site
-  - completed
 completedDate: 2026-09-07
 ---
 

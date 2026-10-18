@@ -7,6 +7,5 @@ summary: make each post show age of ticket
 completedDate: 2026-10-13
 tags:
   - meta
-  - completed
 ---
 make each post show age of ticket
