@@ -12,7 +12,7 @@
 				{% else %}
 					{% if post.data.title %}
 						<h3>
-							<a href="{{ post.url | url }}">{{ post.data.title }}</a>
+							<a href="{{ post.url | url }}">{{ post.data.title | smartQuotes }}</a>
 						</h3>
 					{% endif %}
 					{% if post.data.image %}
@@ -20,7 +20,7 @@
 					{% endif %}
 					{% if post.data.summary %}
 						<p>
-							{{ post.data.summary }}
+							{{ post.data.summary | smartQuotes }}
 						</p>
 					{% endif %}
 					<p>

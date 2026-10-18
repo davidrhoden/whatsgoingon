@@ -5,7 +5,7 @@ section: post
 <section class="{{ client | slug }} full-width">
   <article>
     <div class="centerer">
-      {% if title %}<h3>{{ title }}</h3>{% endif %}
+      {% if title %}<h3>{{ title | smartQuotes }}</h3>{% endif %}
       <p>
         <small>
           <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/clients/{{ client | slug }}/">{{ client }}</a>

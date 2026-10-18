@@ -12,6 +12,12 @@ function slugify(str) {
     .replace(/^-+|-+$/g, "");
 }
 
+function smartQuotes(str) {
+  return String(str || "")
+    .replace(/(^|[\s(\[{\u2013\u2014-])"/g, "$1\u201C").replace(/"/g, "\u201D")
+    .replace(/(^|[\s(\[{\u2013\u2014-])'/g, "$1\u2018").replace(/'/g, "\u2019");
+}
+
 function formatDate(value) {
   if (!value) return "";
   const parsed = new Date(value);
@@ -49,9 +55,9 @@ const Post = createClass({
     };
     const statusBadge =
       status === "done"
-        ? html`<span style=${{ ...badgeStyle, background: "#008000" }}>&#10003; Done${doneLabel ? " " + doneLabel : ""}</span>`
+        ? html`<span style=${{ ...badgeStyle, background: "#008000" }}>✓ Done${doneLabel ? " " + doneLabel : ""}</span>`
         : status === "wontdo"
-          ? html`<span style=${{ ...badgeStyle, background: "#555" }}>&#10007; Won't Do</span>`
+          ? html`<span style=${{ ...badgeStyle, background: "#555" }}>✗ Won't Do</span>`
           : "";
 
     let tags = entry.getIn(["data", "tags"], []);
@@ -63,14 +69,14 @@ const Post = createClass({
         <article style=${{ background: bg }}>
           <div class="centerer">
             ${statusBadge}
-            <h3>${entry.getIn(["data", "title"], null)}</h3>
+            <h3>${smartQuotes(entry.getIn(["data", "title"], ""))}</h3>
             <p>
               <small>
                 ${dateLabel ? html`<time>${dateLabel}</time>` : ""}
                 ${clientName ? " by " + clientName : ""}
               </small>
             </p>
-            ${entry.getIn(["data", "summary"], "") ? html`<p>${entry.getIn(["data", "summary"], "")}</p>` : ""}
+            ${entry.getIn(["data", "summary"], "") ? html`<p>${smartQuotes(entry.getIn(["data", "summary"], ""))}</p>` : ""}
             ${this.props.widgetFor("body")}
             ${tags.length ? html`<p>${tags.map(tag => html`<a href="#" rel="tag">${tag}</a>`)}</p>` : ""}
           </div>

@@ -14,7 +14,7 @@ section: done
 		{% for post in collections.done | reverse %}
 			<article class="done-item">
 				<h3>
-					<a href="{{ post.url | url }}">{{ post.data.title or post.fileSlug }}</a>
+					<a href="{{ post.url | url }}">{{ (post.data.title or post.fileSlug) | smartQuotes }}</a>
 				</h3>
 				<ul class="done-meta">
 					<li><strong>Client:</strong> <a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a></li>
