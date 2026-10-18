@@ -81,6 +81,14 @@ module.exports = function(eleventyConfig) {
     return collection.getFilteredByGlob("posts/*.md").filter(post => post.data.status === "done");
   });
 
+  // Convert straight quotes to curly quotes (plain text only)
+  eleventyConfig.addFilter("smartQuotes", str => {
+    if (!str) return str;
+    return String(str)
+      .replace(/(^|[\s(\[{\u2013\u2014-])"/g, "$1\u201C").replace(/"/g, "\u201D")
+      .replace(/(^|[\s(\[{\u2013\u2014-])'/g, "$1\u2018").replace(/'/g, "\u2019");
+  });
+
   // Keep only open tasks (anything not marked done or wontdo)
   eleventyConfig.addFilter("openOnly", posts => (posts || []).filter(p => !["done", "wontdo"].includes(p.data.status)));
 
@@ -176,7 +184,8 @@ module.exports = function(eleventyConfig) {
   let options = {
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
+    typographer: true
   };
   let opts = {
     permalink: false
