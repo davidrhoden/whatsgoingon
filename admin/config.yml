@@ -1,14 +1,9 @@
 # Netlify CMS Configuration File
 
-# Local dev: serve the admin from the local git repo via decap-server.
-# Only active when served from localhost AND decap-server is running on 8082 —
-# otherwise Decap ignores this and uses the git-gateway backend below.
-local_backend:
-  url: http://localhost:8082/api/v1
-
 # The backend option specifies how to access the content for your site
 backend:
-  name: git-gateway
+  name: github
+  repo: davidrhoden/whatsgoingon
   branch: master # The branch to update (optional; defaults to master)
 
 # Uncomment below to enable drafts https://www.netlifycms.org/docs/add-to-your-site/#editorial-workflow
@@ -48,6 +43,7 @@ collections:
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
       - { label: "Status", name: "status", widget: "select", options: ["open", "done", "wontdo"], default: "open", required: false }
+      - { label: "Completed Date", name: "completedDate", widget: "hidden", required: false }
       - { label: "Body", name: "body", widget: "markdown", required: false }
   # Client list — drives slide background colors and holds contact info
   - name: "clients"
