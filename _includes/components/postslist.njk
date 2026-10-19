@@ -23,9 +23,11 @@
 							{{ post.data.summary | smartQuotes }}
 						</p>
 					{% endif %}
-					<p>
+					<p class="meta">
 						<time datetime="{{ post.date | machineDate }}">
-							<small>{{ post.date | readableDate }} by <a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a> &mdash; {{ post.date | daysOld }} days old</small>
+							{{ post.date | readableDate }} <br>
+							<a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a> <br>
+							{{ post.date | daysOld }} days old
 						</time>
 					</p>
 					{% if post.data.tags %}

@@ -50,7 +50,7 @@ body {
 }
 
 h3 {
-	font-size: 4em;
+	font-size: 7em;
 }
 
 header {
@@ -424,6 +424,10 @@ button {
 	background-color: var(--primary);
 	color: var(--secondary);
 	cursor: pointer;
+}
+
+.meta {
+	font size: 2.5rem;
 }
 
 .full-width {
