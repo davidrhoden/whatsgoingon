@@ -12,7 +12,7 @@ html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: "Liberation Serif", monospace, Georgia, Helvetica, Arial, sans-serif;
+	font-family: monospace, Georgia, Helvetica, Arial, sans-serif;
 }
 
 html {
@@ -380,9 +380,8 @@ a[rel="tag"]:visited {
 	letter-spacing: .1em;
   font-size: .65rem;
   font-weight: 700;
-  padding: .1em .5em;
-	line-height: 1.6em;
-	height: 1.6em;
+  padding: .3em .5em;
+	line-height: 1;
   border: 1px solid #e6e2d8;
 	background-color: #f3f0e8;
 	color: var(--primary);
@@ -408,9 +407,8 @@ a[rel="tag"]:hover {
 .post-tags a[rel="tag"]:visited {
 	font-size: 1.3rem;
 	font-weight: 900;
-	padding: .25em .5em;
-	line-height: 2em;
-	height: 2em;
+	padding: .4em .6em;
+	line-height: 1;
 	margin: 0 .5em .5em 0;
 }
 
