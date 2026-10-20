@@ -402,6 +402,8 @@ a[rel="tag"]:hover {
 	color: #f3f0e8;
 }
 
+.centerer a[rel="tag"],
+.centerer a[rel="tag"]:visited,
 .post-tags a[rel="tag"],
 .post-tags a[rel="tag"]:visited {
 	font-size: 1.3rem;
