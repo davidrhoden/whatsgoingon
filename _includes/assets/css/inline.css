@@ -51,6 +51,12 @@ body {
 
 h3 {
 	font-size: 7em;
+	line-height: 1;
+}
+
+.meta {
+	font-size: 2.2rem;
+	line-height: 1;
 }
 
 header {
@@ -227,7 +233,7 @@ header nav button:hover {
 p,
 pre,
 code {
-	line-height: 1.5;
+	line-height: 1;
 }
 
 a[href],
@@ -372,26 +378,46 @@ a[rel="tag"]:visited {
   vertical-align: text-top;
   text-transform: uppercase;
 	letter-spacing: .1em;
-  font-size: .625em;
-  padding: 0 .5em;
-	line-height: 2em;
-	height: 2em;
-  border: 1px solid var(--secondary);
-	background-color: var(--secondary);
+  font-size: .65rem;
+  font-weight: 700;
+  padding: .1em .5em;
+	line-height: 1.6em;
+	height: 1.6em;
+  border: 1px solid #e6e2d8;
+	background-color: #f3f0e8;
 	color: var(--primary);
   border-radius: .25em;
   text-decoration: none;
-	margin: 0 .5em .5em 0;
+	margin: 0 .35em .35em 0;
+}
+
+.done-meta a[rel="tag"],
+.done-meta a[rel="tag"]:visited {
+	font-size: .65rem;
 }
 
 a[rel="tag"]:hover {
 	border: 1px solid var(--primary);
 	background-color: var(--primary);
-	color: var(--secondary);
+	color: #f3f0e8;
+}
+
+.post-tags a[rel="tag"],
+.post-tags a[rel="tag"]:visited {
+	font-size: 1.3rem;
+	font-weight: 900;
+	padding: .25em .5em;
+	line-height: 2em;
+	height: 2em;
+	margin: 0 .5em .5em 0;
 }
 
 a[rel="tag"]:last-child {
 	margin-right: 0;
+}
+
+.summary{
+	font-size: 3rem;
 }
 
 /* Contact Form */
