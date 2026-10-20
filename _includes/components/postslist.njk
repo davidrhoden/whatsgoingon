@@ -19,7 +19,7 @@
 						<img src="{{ post.data.image }}" alt="{{ post.data.title }}">
 					{% endif %}
 					{% if post.data.summary %}
-						<p>
+						<p class="summary">
 							{{ post.data.summary | smartQuotes }}
 						</p>
 					{% endif %}
@@ -27,7 +27,7 @@
 						<time datetime="{{ post.date | machineDate }}">
 							{{ post.date | readableDate }} <br>
 							<a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a> <br>
-							{{ post.date | daysOld }} days old
+							{% set age = post.date | daysOld %}{{ age }} {{ "day" if age == 1 else "days" }} old
 						</time>
 					</p>
 					{% if post.data.tags %}

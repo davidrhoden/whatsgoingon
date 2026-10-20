@@ -27,7 +27,7 @@ section: done
 							{% endfor %}
 						</li>
 					{% endif %}
-					<li><strong>Age at completion:</strong> {{ post.date | ageAtCompletion(post.data.completedDate) }} days</li>
+					<li><strong>Age at completion:</strong> {% set age = post.date | ageAtCompletion(post.data.completedDate) %}{{ age }} {{ "day" if age == 1 else "days" }}</li>
 				</ul>
 			</article>
 		{% endfor %}
