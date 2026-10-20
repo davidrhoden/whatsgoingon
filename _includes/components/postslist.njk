@@ -2,21 +2,21 @@
 	{% for post in postslist | reverse %}
 
 		{% set isImageOnly = post.data.image and not post.data.title %}
+		{% set hasImage = post.data.image and post.data.title %}
 		{% set client = clients | clientByName(post.data.client) %}
 		<article data-slug="{{ post.fileSlug }}" class="class{{ loop.index }} {{ post.data.client | slug }}
 		{% if post.data.status == "done" %}completed{% elif post.data.status == "wontdo" %}wontdo{% endif %}
-		{% if isImageOnly %}image-only{% endif %}"{% if client and client.color %} style="background: {{ client.color }};"{% endif %}>
+		{% if isImageOnly %}image-only{% endif %}
+		{% if hasImage %}has-image{% endif %}"{% if client and client.color %} style="background: {{ client.color }};"{% endif %}>
 			<div class="centerer">
 				{% if isImageOnly %}
 					<img src="{{ post.data.image }}" alt="">
 				{% else %}
+					<div class="post-text">
 					{% if post.data.title %}
 						<h3>
 							<a href="{{ post.url | url }}">{{ post.data.title | smartQuotes }}</a>
 						</h3>
-					{% endif %}
-					{% if post.data.image %}
-						<img src="{{ post.data.image }}" alt="{{ post.data.title }}">
 					{% endif %}
 					{% if post.data.summary %}
 						<p class="summary">
@@ -39,6 +39,10 @@
 				  			{%- endif -%}
 							{% endfor %}
 						</p>
+					{% endif %}
+					</div>
+					{% if hasImage %}
+						<img src="{{ post.data.image }}" alt="{{ post.data.title }}">
 					{% endif %}
 				{% endif %}
 			</div>
