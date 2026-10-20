@@ -15,7 +15,7 @@ section: post
       {{ layoutContent | safe }}
 
       {% if tags %}
-        <p>
+        <p class="post-tags">
         {% for tag in tags %}
           {%- if tag != "post" -%}
             {% set tagUrl %}/tags/{{ tag | slug }}/{% endset %}
