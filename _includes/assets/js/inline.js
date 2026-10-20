@@ -226,3 +226,35 @@ document.addEventListener('DOMContentLoaded', function() {
   updateEditLink();
   resetTimer();
 });
+
+(function() {
+  if (!document.documentElement.classList.contains('kiosk')) return;
+  var FAST = 60 * 1000, SLOW = 30 * 60 * 1000, current;
+
+  function chicagoNow() {
+    var p = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: 'numeric', second: 'numeric', hourCycle: 'h23' })
+      .formatToParts(new Date()).forEach(function(x) { p[x.type] = +x.value; });
+    return p;
+  }
+
+  function nextDelay() {
+    var t = chicagoNow();
+    if (t.hour >= 8 && t.hour < 23) return FAST;
+    var secsToEight = (((8 - t.hour + 24) % 24) * 3600) - t.minute * 60 - t.second;
+    return Math.max(FAST, Math.min(SLOW, secsToEight * 1000));
+  }
+
+  function check() {
+    fetch('/version.json', { cache: 'no-store' })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (current === undefined) current = d.build;
+        else if (d.build !== current) location.reload();
+      })
+      .catch(function() {})
+      .then(function() { setTimeout(check, nextDelay()); });
+  }
+
+  check();
+})();
