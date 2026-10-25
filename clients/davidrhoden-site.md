@@ -1,5 +1,5 @@
 ---
-name: davidrhoden site
+name: davidrhoden.com
 contactName: ""
 contactEmail: ""
 color: "#DAA520"
