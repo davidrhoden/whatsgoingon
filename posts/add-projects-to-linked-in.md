@@ -4,8 +4,6 @@ date: 2026-10-18T16:49:00
 client: Happening Interactive
 summary: ''
 image: ''
-tags:
-  - post
 status: open
 ---
 

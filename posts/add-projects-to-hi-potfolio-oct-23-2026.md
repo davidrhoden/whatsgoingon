@@ -6,7 +6,7 @@ summary:
 hours: 
 title: Add portfolio pages for HI
 tags:
-  - 
+  - Happening Interactive portfolio
 completedDate: 
 ---
 

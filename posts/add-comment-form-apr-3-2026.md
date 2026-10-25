@@ -5,8 +5,6 @@ status:
 summary: 
 hours: 
 title: add comment form to davidrhoden.com
-tags:
-  - 
 completedDate: 
 ---
 

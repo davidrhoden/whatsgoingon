@@ -5,8 +5,6 @@ status:
 summary: 
 hours: 
 title: Add business type references to HI portfolio
-tags:
-  - 
 completedDate: 
 ---
 

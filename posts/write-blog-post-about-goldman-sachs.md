@@ -1,7 +1,7 @@
 ---
 title: write blog post about Goldman Sachs
 date: 2026-10-18T16:43:00
-client: Timeline
+client: davidrhoden.com
 summary: ''
 image: ''
 tags:

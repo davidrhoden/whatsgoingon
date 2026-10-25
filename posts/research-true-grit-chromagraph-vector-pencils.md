@@ -5,7 +5,6 @@ client: Illustration
 summary: ''
 image: ''
 tags:
-  - post
   - shopping list
 status: open
 ---

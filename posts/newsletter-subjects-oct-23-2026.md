@@ -5,8 +5,6 @@ status:
 summary: 
 hours: 
 title: Send "monthly" newsletter
-tags:
-  - 
 completedDate: 
 ---
 

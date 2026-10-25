@@ -5,7 +5,5 @@ status:
 summary: 
 hours: 
 title: Get that next-gen image transformer from eleventy-base-blog
-tags:
-  - 
 completedDate: 
 ---

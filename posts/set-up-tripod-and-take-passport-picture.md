@@ -4,8 +4,6 @@ date: 2022-08-24T04:27:04.427Z
 client: David Rhoden
 summary: set up tripod and take passport picture
 image: ''
-tags:
-  - post
 status: wontdo
 ---
 
