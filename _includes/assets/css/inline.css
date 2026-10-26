@@ -578,3 +578,154 @@ button {
 		font-size: 1.1rem;
 	}
 }
+
+/* ===== Tablet (768px-1024px) ===== */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	h3 {
+		font-size: 4.5em;
+	}
+
+	article.has-image h3 {
+		font-size: 3em;
+	}
+
+	.summary {
+		font-size: 2.2rem;
+	}
+
+	.centerer {
+		width: 90%;
+	}
+}
+
+/* ===== Mobile (<=767px) ===== */
+@media screen and (max-width: 767px) {
+	body {
+		height: 100svh;
+	}
+
+	header nav {
+		flex-wrap: wrap;
+		gap: 0.5em;
+		padding: 0.5em;
+	}
+
+	/* Collapse the wide labels to arrow icons */
+	header nav button {
+		font-size: 0;
+		padding: 0.5em 0.9em;
+	}
+
+	#btn-prev::after {
+		content: "\2190";
+		font-size: 1rem;
+		padding: 0 3px 2px;
+	}
+
+	#btn-next::after {
+		content: "\2192";
+		font-size: 1rem;
+		padding: 0 3px 2px;
+	}
+
+	#btn-pause-play {
+		position: static;
+		transform: none;
+		font-size: 0.85rem;
+	}
+
+	#nav-done-link {
+		font-size: 0.85rem;
+		margin-left: 0.25em;
+	}
+
+	main {
+		margin-top: 60px;
+		padding-bottom: 1.5em;
+	}
+
+	h3 {
+		font-size: 2.4em;
+	}
+
+	.meta {
+		font-size: 1.5rem;
+	}
+
+	.summary {
+		font-size: 1.6rem;
+	}
+
+	article {
+		height: 100svh;
+		width: 100vw;
+	}
+
+	article.image-only {
+		padding-top: 0;
+	}
+
+	article.image-only .centerer {
+		height: calc(100svh - 2rem);
+	}
+
+	article.has-image .centerer {
+		height: auto;
+		min-height: calc(100svh - 60px);
+		padding: 1rem 0;
+	}
+
+	article.has-image h3 {
+		font-size: 2em;
+	}
+
+	article.has-image .summary {
+		font-size: 1.3rem;
+	}
+
+	.centerer {
+		width: 92%;
+	}
+
+	.centerer a[rel="tag"],
+	.post-tags a[rel="tag"] {
+		font-size: 1rem;
+	}
+
+	/* Admin panel: bottom-right corner, tap the tab to reveal */
+	#admin-panel {
+		left: auto;
+		right: 0;
+		top: auto;
+		bottom: 0;
+		transform: none;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	#admin-panel-tab {
+		border-radius: 0.4em 0 0 0.4em;
+	}
+
+	#admin-panel-content {
+		display: none;
+		order: 0;
+	}
+
+	#admin-panel:hover #admin-panel-content,
+	#admin-panel:active #admin-panel-content {
+		display: flex;
+	}
+
+	.done-list {
+		padding: 0.5em;
+	}
+
+	.done-item {
+		padding: 0.75em 0;
+	}
+
+	form {
+		padding: 1em 0;
+	}
+}
