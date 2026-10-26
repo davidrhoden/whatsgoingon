@@ -1,7 +1,7 @@
 ---
 title: Paint this character
 date: 2026-08-29T12:59:23.567Z
-client: Anonymous
+client: David Rhoden
 status: done
 image: /static/img/daily-drawing-add-some-music-aug-27-2026.jpeg
 completedDate: 2026-08-29T12:59:23.592Z
