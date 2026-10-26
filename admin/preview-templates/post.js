@@ -42,6 +42,7 @@ const Post = createClass({
 
     const dateLabel = formatDate(entry.getIn(["data", "date"]));
     const doneLabel = formatDate(completedDate);
+    const dueLabel = formatDate(entry.getIn(["data", "dueDate"], ""));
 
     const badgeStyle = {
       display: "inline-block",
@@ -76,6 +77,7 @@ const Post = createClass({
                 ${clientName ? " by " + clientName : ""}
               </small>
             </p>
+            ${dueLabel ? html`<p style=${{ fontWeight: "bold", margin: "0 0 8px" }}>Due: ${dueLabel}</p>` : ""}
             ${entry.getIn(["data", "summary"], "") ? html`<p>${smartQuotes(entry.getIn(["data", "summary"], ""))}</p>` : ""}
             ${this.props.widgetFor("body")}
             ${tags.length ? html`<p>${tags.map(tag => html`<a href="#" rel="tag">${tag}</a>`)}</p>` : ""}

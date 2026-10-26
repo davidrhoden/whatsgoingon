@@ -27,6 +27,7 @@
 						<time datetime="{{ post.date | machineDate }}">
 							{{ post.date | readableDate }} <br>
 							<a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a> <br>
+							{% if post.data.dueDate %}Due: {{ post.data.dueDate | readableDate }} <br>{% endif %}
 							{% set age = post.date | daysOld %}{{ age }} {{ "day" if age == 1 else "days" }} old
 						</time>
 					</p>

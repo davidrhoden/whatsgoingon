@@ -8,7 +8,7 @@ section: post
       {% if title %}<h3>{{ title | smartQuotes }}</h3>{% endif %}
       <p>
         <small>
-          <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/clients/{{ client | slug }}/">{{ client }}</a>
+          <time datetime="{{ page.date | machineDate }}">{{ page.date | readableDate }}</time> by <a href="/clients/{{ client | slug }}/">{{ client }}</a>{% if dueDate %} · Due: {{ dueDate | readableDate }}{% endif %}
         </small>
       </p>
 
