@@ -8,11 +8,5 @@ eleventyNavigation:
   order: 0
 ---
 
-This page will be a dashboard of current projects, with visualizations of:
-
-1. how many tickets active
-1. how many tickets historically
-1. hours this month
-1. hours historically
-1. hottest ticket
+Hey! If you got here, you're probably looking for [davidrhoden.com](https://davidrhoden.com), or [This Is My Happening: The Artwork of David Rhoden](https://thisismyhappening.com). Or maybe you're just lost, or a robot. Anyway, thanks for checking in on me. I'm fine.
 
