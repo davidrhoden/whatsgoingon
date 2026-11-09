@@ -42,7 +42,7 @@ collections:
       - { label: "Client", name: "client", widget: "relation", collection: "clients", search_fields: ["name"], value_field: "name", display_fields: ["name"], default: "Anonymous" }
       - { label: "Summary", name: "summary", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
-      - { label: "Tags", name: "tags", widget: "list", default: ["post"] }
+      - { label: "Tags", name: "tags", widget: "list", default: ["post"], required: false }
       - { label: "Status", name: "status", widget: "select", options: ["open", "done", "wontdo"], default: "open", required: false }
       - { label: "Due Date", name: "dueDate", widget: "datetime", required: false }
       - { label: "Completed Date", name: "completedDate", widget: "hidden", required: false }
