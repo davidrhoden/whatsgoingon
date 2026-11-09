@@ -1,14 +1,14 @@
 ---
+title: 'Submissions for LCD #32 on musical instruments'
 date: 2026-10-26
 client: WFMU
-dueDate: 2026-11-01T12:00:00.000-05:00
-status: 
-summary: 
-hours: 
-title: "Submissions for LCD #32 on musical instruments"
+summary: ''
+image: ''
 tags:
-  - 
-completedDate: 
+  - WFMU
+status: wontdo
+dueDate: 2026-11-01T12:00:00.000-05:00
+hours: null
 ---
 
 DUE DATE NOVEMBER 1, 2026.
