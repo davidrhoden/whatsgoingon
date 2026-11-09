@@ -6,5 +6,7 @@ summary: ''
 image: ''
 tags:
   - shopping list
-status: open
+status: done
+dueDate: ''
+completedDate: 2026-11-09
 ---
