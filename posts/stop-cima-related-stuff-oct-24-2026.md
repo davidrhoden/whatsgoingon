@@ -1,13 +1,15 @@
 ---
+title: Take down CIMA related sites
 date: 2026-10-24
 client: AgenciesOnline
-status: 
-summary: 
-hours: 
-title: Take down CIMA related sites
+summary: ''
+image: ''
 tags:
   - Happening Interactive
-completedDate: 
+status: done
+dueDate: ''
+completedDate: 2026-11-09
+hours: null
 ---
 
 amicworld.site
