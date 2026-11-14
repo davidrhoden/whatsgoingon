@@ -5,7 +5,7 @@ status:
 summary: 
 hours: 
 title: improve Subaru sambar sketch
-image:/static/img/subaru-sambar-1972-nov-14-2026.afphoto.png
+image: /static/img/subaru-sambar-1972-nov-14-2026.afphoto.png
 completedDate: 
 dueDate: 
 ---

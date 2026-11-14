@@ -5,6 +5,5 @@ status:
 summary: 
 hours: 
 title: Make cover art for Stacks Oktoberfest show
-completedDate: 
 dueDate: 
 ---
