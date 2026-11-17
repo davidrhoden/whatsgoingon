@@ -1,7 +1,7 @@
 ---
 date: 2026-11-14
 client: davidrhoden.com
-status: 
+status: done
 summary: 
 hours: 
 title: post about levee offerings, mid-November
