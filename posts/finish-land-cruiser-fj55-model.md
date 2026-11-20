@@ -10,4 +10,4 @@ status: open
 dueDate: ''
 ---
 
-![unfinished Land Cruiser FJ55 model](/static/img/IMG_5580.jpeg)
+![unfinished Land Cruiser FJ55 model](/static/img/model-cardboard-fj55.jpeg)
