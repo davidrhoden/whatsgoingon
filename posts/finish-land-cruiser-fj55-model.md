@@ -3,7 +3,7 @@ title: Finish Land Cruiser FJ55 model
 date: 2026-11-11T10:19:00
 client: This Is My Happening
 summary: ''
-image: /static/img/IMG_5580.jpeg
+image: /static/img/model-cardboard-fj55.jpe
 tags:
   - post
 status: open
