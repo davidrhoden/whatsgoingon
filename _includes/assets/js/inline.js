@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollToPlugin);
 
-  var allArticles = Array.from(document.querySelectorAll('main article'));
+  var allArticles = Array.from(document.querySelectorAll('main article[data-slug]'));
   if (!allArticles.length) return;
 
   var currentIndex = 0;
