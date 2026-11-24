@@ -8,15 +8,16 @@ section: done
 <p><a href="/">&larr; Back to task tracker</a></p>
 
 <section class="done-list">
-	{% if collections.done | length == 0 %}
+	{% if collections.closed | length == 0 %}
 		<p id="done-empty">No completed tasks yet.</p>
 	{% else %}
-		{% for post in collections.done | reverse %}
-			<article class="done-item">
+		{% for post in collections.closed | reverse %}
+			<article class="done-item {{ post.data.status }}">
 				<h3>
 					<a href="{{ post.url | url }}">{{ (post.data.title or post.fileSlug) | smartQuotes }}</a>
 				</h3>
 				<ul class="done-meta">
+					<li><strong>Status:</strong> <span class="done-status {{ post.data.status }}">{{ "Won't do" if post.data.status == "wontdo" else "Done" }}</span></li>
 					<li><strong>Client:</strong> <a href="/clients/{{ post.data.client | slug }}/">{{ post.data.client }}</a></li>
 					{% if post.data.tags %}
 						<li><strong>Tags:</strong>
@@ -27,7 +28,7 @@ section: done
 							{% endfor %}
 						</li>
 					{% endif %}
-					<li><strong>Age at completion:</strong> {% set age = post.date | ageAtCompletion(post.data.completedDate) %}{{ age }} {{ "day" if age == 1 else "days" }}</li>
+					<li><strong>Age at {{ "close" if post.data.status == "wontdo" else "completion" }}:</strong> {% set age = post.date | ageAtCompletion(post.data.completedDate) %}{{ age }} {{ "day" if age == 1 else "days" }}</li>
 				</ul>
 			</article>
 		{% endfor %}

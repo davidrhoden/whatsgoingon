@@ -81,6 +81,11 @@ module.exports = function(eleventyConfig) {
     return collection.getFilteredByGlob("posts/*.md").filter(post => post.data.status === "done");
   });
 
+  // Closed tasks collection (status: done or wontdo)
+  eleventyConfig.addCollection("closed", collection => {
+    return collection.getFilteredByGlob("posts/*.md").filter(post => ["done", "wontdo"].includes(post.data.status));
+  });
+
   // Convert straight quotes to curly quotes (plain text only)
   eleventyConfig.addFilter("smartQuotes", str => {
     if (!str) return str;

@@ -558,6 +558,15 @@ button {
 	margin: 0 0 0.25em;
 }
 
+.done-item.done h3 {
+	font-weight: 700;
+}
+
+.done-item.wontdo h3 {
+	font-weight: 400;
+	opacity: 0.55;
+}
+
 .done-meta {
 	list-style: none;
 	padding: 0;
@@ -571,6 +580,19 @@ button {
 
 .done-meta li {
 	margin: 0;
+}
+
+.done-status {
+	display: inline-block;
+	font-weight: 700;
+	padding: 0.1em 0.5em;
+	border-radius: 0.25em;
+	color: #fff;
+	background: #1a8a1a;
+}
+
+.done-status.wontdo {
+	background: #a02020;
 }
 
 @media screen and (min-width:768px) {
