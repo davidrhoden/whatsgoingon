@@ -1,11 +1,14 @@
 ---
+title: Send end-of-year "monthly" newsletter
 date: 2026-10-23
 client: davidrhoden.com
-status: 
-summary: 
-hours: 
-title: Send "monthly" newsletter
-completedDate: 
+summary: ''
+image: ''
+tags:
+  - post
+status: open
+dueDate: ''
+hours: null
 ---
 
 New lukespurrallen.com site
